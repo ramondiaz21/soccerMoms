@@ -1,0 +1,132 @@
+.hero {
+  background-image: url("../../images/hero.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  position: relative;
+
+  @media screen and (max-width: $small) {
+    background-attachment: unset;
+  }
+
+  .shadow-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  .content-wrapper {
+    @include centerer;
+
+    @media screen and (max-width: $small) {
+      /*position: static;
+      top: 50%;
+      display: block;
+      left: 50%;*/
+    }
+  }
+
+  img {
+    height: 20vw;
+    width: auto !important;
+
+    @media screen and (max-width: $small) {
+      height: 70vw;
+    }
+  }
+
+  h1,p {
+    color: white !important;
+  }
+
+  .title {
+    margin-top: 15px;
+    line-height: 1;
+    text-align: center;
+
+    @media screen and (max-width: $small) {
+      line-height: 1.4;
+    }
+
+    span {
+      display: inline-block;
+      position: relative;
+
+      &::before, &::after {
+        content: "";
+        position: absolute;
+        height: 5px;
+        border-bottom: 1px solid white;
+        border-top: 1px solid white;
+        top: 50%;
+        width: 100px;
+
+        @media screen and (max-width: $small) {
+          top: 50%;
+          display: none;
+        }
+      }
+
+      &::before {
+        right: 100%;
+        margin-right: 15px;
+      }
+
+      &::after {
+        left: 100%;
+        margin-left: 15px;
+      }
+    }
+
+  }
+
+  .moon-container {
+    position: absolute;
+    top: calc(50% - 25px);
+    left: calc(50% - 25px);
+  }
+
+  .moon {
+    animation: spin 20s linear infinite;
+    background: none;
+    height: 50px;
+    pointer-events: none;
+    transform-origin: 25px;
+    width: 50px;
+  }
+
+  .moon img {
+    height: 50px;
+    transform: translateX(-160px) translateY(-160px);
+    width: 50px;
+    border-radius: 50%;
+    box-shadow: 0 0 12em 1em rgba(110, 140, 200, .6);
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotateZ(360deg);
+    }
+  }
+}
+
+.heroEquipos {
+  background-image: url("../../images/equipo.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  position: relative;
+
+  @media screen and (max-width: $small) {
+    background-attachment: unset;
+  }
+}

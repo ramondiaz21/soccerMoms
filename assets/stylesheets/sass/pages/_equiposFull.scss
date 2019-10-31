@@ -1,0 +1,99 @@
+.equiposFull {
+  padding: 50px;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  display: table;
+
+  .title-wrapper {
+    border-left: 1.5px solid #5D4E60;
+    color: #5D4E60;
+    width: 100%;
+  }
+
+  .equipos-wrapper {
+    margin-top: 50px;
+  }
+
+  .imageEquipo {
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+  }
+
+  hr {
+    border-top: 1px solid #5D4E60;
+  }
+
+  a {
+    transition: all 1s ease-out;
+  }
+
+  .equipo-card {
+    margin: 40px 0;
+    padding: 15px;
+    transition: all 1s ease-out;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: #999999bf;
+
+      a {
+        color: white;
+      }
+
+      h5 {
+        background-color: white;
+        color: #5D4E60;
+      }
+
+      hr {
+        border-top: 1px solid white;
+      }
+
+      .arrow {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .arrow {
+  }
+
+  a {
+
+    &:hover {
+      border-bottom: 2px solid white;
+    }
+  }
+
+  .imageEquipoAlt {
+    height: 250px;
+    width: 250px;
+    border-radius: 100%;
+  }
+
+  .alt {
+    h5 {
+      transition: all 1s ease-out;
+      background-color: #5D4E60;
+      color: white;
+      width: fit-content;
+      text-align: center;
+      margin: 10px auto;
+      padding: 5px;
+      display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+-webkit-line-clamp: 1;
+    }
+
+    hr {
+      width: 60%;
+      margin: 10px auto;
+      transition: all 1s ease-out;
+    }
+  }
+}

@@ -1,0 +1,54 @@
+.heroNoticia {
+  background-image: url(../../images/familiar.jpg);
+  /* background-attachment: fixed; */
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 90vh;
+  position: relative;
+  width: 100%;
+  background-color: #5D4E60;
+
+  @media only screen and (max-width: 549px) {
+    height: 281px;
+    background-size: cover;
+  }
+}
+
+.noticia {
+  padding: 30px;
+  background-color: #5D4E60;
+
+  @media only screen and (max-width: 549px) {
+    padding: 30px 20px;
+  }
+
+  h1 {
+    color: #5D4E60;
+  }
+
+  .extracto {
+    color: darkgray;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .noticia-wrapper {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+
+    @media only screen and (max-width: 549px) {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+  .text {
+    color: black;
+    text-align: justify;
+  }
+}

@@ -1,0 +1,53 @@
+.auto-overflow{
+	overflow: auto;
+}
+
+.no-padding{
+  padding: 0;
+}
+
+.example-modal .modal {
+  position: relative;
+  top: auto;
+  bottom: auto;
+  right: auto;
+  left: auto;
+  display: block;
+  z-index: 1;
+}
+
+.example-modal .modal {
+  background: transparent !important;
+}
+
+.my-thead{
+    /*background-color: #3c8dbc;color: white;*/
+    background-color: #97b7c966;color: #0b0a0a;
+  }
+
+   td{
+    border-bottom: solid 1px #12131466 !important;
+  }
+
+   th{
+    border-bottom: solid 1px #12131466 !important;
+  }
+
+   tr{
+    border-bottom: solid 1px #12131466 !important;
+  }
+
+
+.header-notifications{
+  padding: 7px 10px !important;
+}
+
+.footer-notifications{
+  padding: 7px 10px !important;
+  text-align: center !important;
+}
+
+
+#notification_container{
+  box-shadow: 0px 0px 4px 0px !important;
+}

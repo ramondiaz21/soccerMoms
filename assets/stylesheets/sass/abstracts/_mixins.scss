@@ -1,0 +1,32 @@
+$breakpoints: (
+  'small': (max-width: 799px),
+  'medium': (min-width: 800px),
+  'large': (min-width: 1000px),
+  'huge': (min-width: 1200px),
+);
+
+
+
+$small: 500px;
+$smallAlt: 501px;
+$large: 1200px;
+$extra-large: 1500px;
+
+//HOW TO USE THE MEDIA QUERIES
+/*@include respond-to('medium') {
+    color: blue;
+  }*/
+
+  @mixin centerer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    @media screen and (max-width: $small) {
+      /*position: static;
+      top: 0;
+      left: 0;
+      transform: translate(0, 0);*/
+    }
+  }
