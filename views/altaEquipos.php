@@ -107,7 +107,7 @@
               </div>
               <div class="col-lg-4 col-md-4 col-12 text-center">
                 <output id="list" class="image-wrapper" style="margin: auto; width: 250px; height: 250px;">
-                  <!--<img id="imagenPerfil" src="" style="width: 100%; height: 100%;" alt="">-->
+                  <img id="imagenPerfil" src="assets/images/usuaria.jpg" style="width: 100%; height: 100%;" alt="">
                 </output>
                 <!--<button type="button" class="btn btn-primary" style="margin:auto; width:80%;margin-top: 15px;"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Subir Imagen</button>-->
                 <form id="myform" enctype="multipart/form-data">

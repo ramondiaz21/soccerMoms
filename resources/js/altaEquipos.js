@@ -473,6 +473,7 @@ function removeModals() {
 function cleanDataModals() {
   $("#modAgregarJugadora input.form-control").val("");
   $("#modAgregarJugadora select.form-control").val("");
+  $("#modAgregarJugadora img").attr('src', 'assets/images/usuaria.jpg');
 }
 
 $(document).on('keyup', '#txt_busqueda', function(e) {
