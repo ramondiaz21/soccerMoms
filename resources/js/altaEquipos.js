@@ -318,7 +318,7 @@ function agregaEquipo() {
     equipo: $('#select_equipo').val(),
     nombre: $('#txtNombre').val(),
     telefono: $('#txtTelefono').val(),
-    imagen: nombreImagen
+    imagen: evidencia
   }
   console.log(parametro);
   $.ajax({
@@ -362,7 +362,7 @@ $(document).on('click', '#btnAgregarNew', function(e) {
   var flag = true;
   var cont = 0;
 
-  $('#formAgregar input.necesary').each(function(index, currentElement) {
+  $('#modAgregarJugadora input.necesary').each(function(index, currentElement) {
     var currentElement = $(this);
     var value = currentElement.val();
 
@@ -377,7 +377,7 @@ $(document).on('click', '#btnAgregarNew', function(e) {
     }
   });
 
-  $('#formAgregar input.necesary').keyup(function(currentElement) {
+  $('#modAgregarJugadora input.necesary').keyup(function(currentElement) {
     var currentElement = $(this);
     var value = currentElement.val();
 
@@ -471,8 +471,8 @@ function removeModals() {
 }
 
 function cleanDataModals() {
-  $("#formAgregar input.form-control").val("");
-  $("#formAgregar select.form-control").val("");
+  $("#modAgregarJugadora input.form-control").val("");
+  $("#modAgregarJugadora select.form-control").val("");
 }
 
 $(document).on('keyup', '#txt_busqueda', function(e) {
@@ -566,18 +566,15 @@ function busqueda() {
 
 var evidencia;
 
-/*$(document).on('change', '#filePrueba', function(e) {
-  e.preventDefault();
+$(document).on('change', '#filePrueba', function(event) {
+  event.preventDefault();
 
-  var formData = new FormData();
-  var files = $('#myform')[0].files[0];
-  $("#myform")[0]
+  var formData = new FormData($("#myform")[0]);
   console.log(formData);
 
   $.ajax({
     url: 'resources/routes/routeAltaEquipos.php',
-    type: 'POST',
-    async: true,
+    type: 'post',
     data: formData,
     contentType: false,
     processData: false,
@@ -589,7 +586,7 @@ var evidencia;
 
     error: function(error) {
       console.log(error);
-      toast1("Error!", error, 5000, "error");
+      //toast1("Error!", ajaxError, 8000, "error");
       removeSpinner();
     },
 
@@ -598,42 +595,22 @@ var evidencia;
 
       if (data == null) {
         toast1("Atención!", "Error al cargar la evidencia", 4000, "warning");
-      } else {
-        //evidencia = data;
-
         //$("#filePrueba").val("");
+      } else {
+        evidencia = data;
+        console.log(evidencia);
+        $("#filePrueba").val("");
         toast1("Relizado!", "La evidencia se a cargado", 3000, "success");
       }
 
     }
   });
 
-});*/
-var nombreImagen;
+});
 
-$(document).ready(function() {
-  $("#image").on('change', function() {
-    var formData = new FormData();
-    var files = $('#image')[0].files[0];
-    formData.append('file', files);
-    $.ajax({
-      url: 'resources/routes/routeAltaEquipos.php',
-      type: 'post',
-      data: formData,
-      contentType: false,
-      processData: false,
-      success: function(response) {
-        if (response != 0) {
-          console.log(response);
-          nombreImagen = response;
-          console.log(nombreImagen);
-          toast1("Relizado!", "La evidencia se a cargado", 3000, "success");
-          //$(".card-img-top").attr("src", response);
-        } else {
-          toast1("Atención!", "Error al cargar la evidencia", 4000, "warning");
-        }
-      }
-    });
-    return false;
-  });
+$(document).on('click', '#upload2p', function(e) {
+  e.preventDefault();
+
+  $('#filePrueba').trigger("click");
+
 });

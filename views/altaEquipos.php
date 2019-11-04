@@ -67,6 +67,10 @@
               </tbody>
             </table>
           </div>
+          <!--<form id="frmSubirImagen" action="resources/js/submit.php" method="POST" role="form" enctype="multipart/form-data">
+            <input type="file" class="form-control" id="imagen" name="imagen" value="" placeholder="">
+            <button type="submit" class="btn btn-primary">Subir Imagen</button>
+          </form>-->
           <!--<div class="box-footer clearfix">
             <ul class="pagination pagination-sm no-margin pull-right">
               <li><a href="#">&laquo;</a></li>
@@ -89,7 +93,6 @@
               <span aria-hidden="true" style="color: white">&times;</span>x</button>
             <h4 class="modal-title" id="title_contratantes">NUEVA JUGADORA</h4>
           </div>
-          <form action="" id="formAgregar" method="" accept-charset="">
             <div class="modal-body" id="div_modal_body">
               <div class="row">
                 <div class="col-lg-8 col-md-8 col-12">
@@ -100,24 +103,12 @@
                     <input type="tel" class="form-control necesary" id="txtTelefono" name="" value="" placeholder="Teléfono*">
                   </div>
                   <div class="col-lg-12 text-center" style="margin-top: 15px">
-                    <!--<button type="button" style="width: 60%;" class="btn btn-info"><i class="fa fa-upload" aria-hidden="true"></i></i>&nbsp;Subir Documento</button>
-                    <form action="upload.php" method="post" enctype="multipart/form-data">
-                      Select image to upload:
-                      <input type="file" name="fileToUpload" id="fileToUpload">
-                      <input type="submit" value="Upload Image" name="submit">
-                    </form>-->
-                    <!--<form id="myform" enctype="multipart/form-data">
-                      <input class="form-control-file" id="filePrueba" name='filePrueba' type="file" accept='image/jpeg, image/x-png'>
-                    </form>-->
-                    <!--<form method="post" action="#" enctype="multipart/form-data">
-                      <input type="file" class="form-control-file" name="image" id="image">
-                      <input type="button" class="btn btn-primary upload" value="Subir">
-                    </form>-->
-                    <form id="uploadimage" action="" method="post" enctype="multipart/form-data">
-                      <input type="file" name="file" id="file" required />
-                      <input type="submit" value="Upload" class="submit" />
+                    <form id="myform" enctype="multipart/form-data">
+                      <input class="form-control-file" id="filePrueba" name='filePrueba' type="file"  accept='image/jpeg, image/x-png'>
                     </form>
-                    <div id="respuesta"></div>
+                    <button class='btn btn-success ' id='upload2p'>Subir Imagen</button>
+                    <button class='btn btn-warning ' id='reloadp' style="display: none;">Actualizar Imagen</button>
+                    <input type="submit" style="display: none;" value="Enviar" />
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-12 text-center">
@@ -132,7 +123,6 @@
               <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">CERRAR</button>
               <button type="submit" class="btn btn-primary btn_modal_contratantes" id="btnAgregarNew">AGREGAR USUARIO</button>
             </div>
-          </form>
         </div>
       </div>
     </div>

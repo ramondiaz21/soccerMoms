@@ -78,10 +78,11 @@
             $telefono   = $info['telefono'];
             $imagen   = $info['imagen'];
 
-            $consulta = "INSERT INTO jugadoras (equipo,nombre,telefono,status) 
+            $consulta = "INSERT INTO jugadoras (equipo,nombre,telefono,imagen,status) 
                         VALUES('$equipo','$nombre','$telefono','$imagen',1)";
 
             // echo $consulta; exit;
+            //var_dump($consulta);exit;
             return DBConnection::query($consulta);
             
         }
@@ -153,11 +154,11 @@
             chdir('../');
             $dir=getcwd();
             
-            $ruta=$dir."/archivosJugadoras/".$nom2.".jpg";
+            $ruta=$dir."/clases/archivosJugadoras/".$nom2.".jpg";
 
             //var_dump($doc);
 
-            if ($doc["type"]=="image/*"){
+            if ($doc["type"]=="image/jpeg" or $doc["type"]== "image/png"){
 
                 //if(move_uploaded_file($doc["tmp_name"],$ruta)){
 

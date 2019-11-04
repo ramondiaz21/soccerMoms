@@ -43,7 +43,7 @@ switch ($action) {
 
     default:
 
-            $doc = $_FILES["file"];
+            $doc = $_FILES["filePrueba"];
             //var_dump($doc);exit();
             echo $Equipos->upload($doc);
 
