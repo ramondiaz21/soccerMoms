@@ -592,15 +592,13 @@ $(document).on('change', '#filePrueba', function(event) {
 
     success: function(data) {
       removeSpinner();
-
       if (data == null) {
         toast1("Atención!", "Error al cargar la evidencia", 4000, "warning");
-        //$("#filePrueba").val("");
+
       } else {
         evidencia = data;
-        console.log(evidencia);
         $("#filePrueba").val("");
-        toast1("Relizado!", "La evidencia se a cargado", 3000, "success");
+        toast1("Relizado!", "La imagen de perfil se cargo correctamente", 3000, "success");
       }
 
     }
@@ -614,3 +612,28 @@ $(document).on('click', '#upload2p', function(e) {
   $('#filePrueba').trigger("click");
 
 });
+
+function archivo(evt) {
+  var files = evt.target.files; // FileList object
+
+  //Obtenemos la imagen del campo "file". 
+  for (var i = 0, f; f = files[i]; i++) {
+    //Solo admitimos imágenes.
+    if (!f.type.match('image.*')) {
+      continue;
+    }
+
+    var reader = new FileReader();
+
+    reader.onload = (function(theFile) {
+      return function(e) {
+        // Creamos la imagen.
+        document.getElementById("list").innerHTML = ['<img class="thumb" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+      };
+    })(f);
+
+    reader.readAsDataURL(f);
+  }
+}
+
+document.getElementById('filePrueba').addEventListener('change', archivo, false);

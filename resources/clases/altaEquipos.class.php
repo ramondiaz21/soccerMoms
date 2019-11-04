@@ -158,7 +158,7 @@
 
             //var_dump($doc);
 
-            if ($doc["type"]=="image/jpeg" or $doc["type"]== "image/png"){
+            if ($doc["type"]=="image/jpeg" or $doc["type"]== "image/png" or $doc["type"]== "image/jpg"){
 
                 //if(move_uploaded_file($doc["tmp_name"],$ruta)){
 

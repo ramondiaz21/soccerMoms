@@ -14,8 +14,8 @@
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active, .accordion:hover {
-}
+.active,
+.accordion:hover {}
 
 /* Style the accordion panel. Note: hidden by default */
 .panel {
@@ -27,16 +27,17 @@
 }
 
 .alt {
-	display: inline-block;
-	width: 50%;
+  display: inline-block;
+  width: 50%;
 }
 
 #formAgregarCliente .form-control {
-	margin: 10px 0;
+  margin: 10px 0;
 }
 
-#formAgregarClienteFact .form-control, #formEditarCliente .form-control {
-	margin: 10px 0;
+#formAgregarClienteFact .form-control,
+#formEditarCliente .form-control {
+  margin: 10px 0;
 }
 
 .invalido {
@@ -62,4 +63,9 @@ th {
 
 tbody {
   text-align: center;
+}
+
+.thumb {
+  height: 100%;
+  width: 100%;
 }
