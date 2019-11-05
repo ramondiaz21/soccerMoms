@@ -61,7 +61,6 @@ CREATE TABLE IF NOT EXISTS jugadoras (
   nombre VARCHAR(255) NOT NULL,
   telefono VARCHAR(50) NOT NULL,
   imagen VARCHAR(255) NOT NULL,
-  archivo VARCHAR(255) NOT NULL,
   status INT(11) NOT NULL DEFAULT '1',
   creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   actualización TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -70,13 +69,10 @@ CREATE TABLE IF NOT EXISTS jugadoras (
 COLLATE='utf8_bin'
 ;
 
-DROP TABLE IF EXISTS jugadoras;
-CREATE TABLE IF NOT EXISTS jugadoras (
+DROP TABLE IF EXISTS archivo_detalles;
+CREATE TABLE IF NOT EXISTS archivo_detalles (
   id INT(11) NOT NULL AUTO_INCREMENT,
-  equipo INT(11) NOT NULL,
-  nombre VARCHAR(255) NOT NULL,
-  telefono VARCHAR(50) NOT NULL,
-  imagen VARCHAR(255) NOT NULL,
+  id_jugadora INT(11) NOT NULL,
   archivo VARCHAR(255) NOT NULL,
   status INT(11) NOT NULL DEFAULT '1',
   creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -85,8 +81,6 @@ CREATE TABLE IF NOT EXISTS jugadoras (
 )
 COLLATE='utf8_bin'
 ;
-
-
 
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -97,7 +91,14 @@ ALTER TABLE usuarios
 ALTER TABLE jugadoras
   ADD CONSTRAINT FK_jugadora_equipo FOREIGN KEY (equipo) REFERENCES equipos (id);
 
+ALTER TABLE archivo_detalles
+  ADD CONSTRAINT FK_archivo_jugadora FOREIGN KEY (id_jugadora) REFERENCES jugadoras (id);
+
 ALTER TABLE equipos
   ADD CONSTRAINT FK_equipo_usuario FOREIGN KEY (usuario) REFERENCES usuarios (id);
 
 SET FOREIGN_KEY_CHECKS=1;
+
+
+INSERT INTO usuarios (username,PASSWORD,nombre,rol)
+VALUES ('admin',MD5('123'),'administrador',1);
