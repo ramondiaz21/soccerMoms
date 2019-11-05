@@ -143,7 +143,6 @@
               <span aria-hidden="true" style="color: white">&times;</span>x</button>
             <h4 class="modal-title" id="title_contratantes">EDITAR JUGADORA</h4>
           </div>
-          <form action="" id="formEditar" method="" accept-charset="">
             <div class="modal-body" id="div_modal_body">
               <input type="text" class="form-control necesary" id="txtIdE" name="" value="" placeholder="Nombre De Jugadora*" style="display: none">
               <div class="row">
@@ -166,7 +165,7 @@
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-12 text-center">
-                  <div class="image-wrapper" style="margin: auto; width: 250px; height: 250px;">
+                  <div id="image-wrapper" class="image-wrapper" style="margin: auto; width: 250px; height: 250px;">
                     <img src="assets/images/usuaria.jpg" style="width: 100%; height: 100%;" alt="">
                   </div>
                   <button type="button" class="btn btn-primary" style="margin:auto; width:80%;margin-top: 15px;"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Subir Imagen</button>
@@ -177,7 +176,6 @@
               <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">CERRAR</button>
               <button type="submit" class="btn btn-primary btn_modal_contratantes" id="btnEditar">EDITAR JUGADORA</button>
             </div>
-          </form>
         </div>
       </div>
     </div>

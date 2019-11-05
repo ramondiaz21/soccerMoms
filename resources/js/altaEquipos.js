@@ -132,6 +132,8 @@ function loadData($info) {
   });
 }
 
+var imagenJugadora;
+
 function getJugadora(id) {
 
   var parametro = {
@@ -163,6 +165,14 @@ function getJugadora(id) {
         $('#txtIdE').val(data[0][0]);
         $('#txtNombreE').val(data[0][1]);
         $('#txtTelefonoE').val(data[0][2]);
+        imagenJugadora = data[0][3];
+        console.log(imagenJugadora);
+        if (imagenJugadora != "") {
+          $("#modEditarJugadora img").attr('src', 'resources/clases/archivosJugadoras/' + imagenJugadora);
+        } else {
+          $("#modEditarJugadora img").attr('src', 'assets/images/usuaria.jpg');
+        }
+
       } else {
         $('tbody').empty();
         toast1("Atencion!", "No hay jugadora para mostrar", 5000, "error");
@@ -401,7 +411,7 @@ $(document).on('click', '#btnEditar', function(e) {
   var flag = true;
   var cont = 0;
 
-  $('#formEditar input.necesary').each(function(index, currentElement) {
+  $('#modEditarJugadora input.necesary').each(function(index, currentElement) {
     var currentElement = $(this);
     var value = currentElement.val();
 
@@ -417,7 +427,7 @@ $(document).on('click', '#btnEditar', function(e) {
     }
   });
 
-  $('#formEditar input.necesary').keyup(function(currentElement) {
+  $('#modEditarJugadora input.necesary').keyup(function(currentElement) {
     var currentElement = $(this);
     var value = currentElement.val();
 
@@ -598,8 +608,9 @@ $(document).on('change', '#filePrueba', function(event) {
 
       } else {
         evidencia = data;
+        console.log(evidencia);
         $("#filePrueba").val("");
-        toast1("Relizado!", "La imagen de perfil se cargo correctamente", 3000, "success");
+        toast1("Éxito!", "La imagen de perfil se cargo correctamente", 3000, "success");
       }
 
     }
