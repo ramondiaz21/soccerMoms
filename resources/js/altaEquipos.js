@@ -602,6 +602,7 @@ $(document).on('change', '#filePrueba', function(event) {
     },
 
     success: function(data) {
+      console.log(data);
       removeSpinner();
       if (data == null) {
         toast1("Atención!", "Error al cargar la evidencia", 4000, "warning");
@@ -650,7 +651,7 @@ function archivo(evt) {
 
 document.getElementById('filePrueba').addEventListener('change', archivo, false);
 
-function archivo(evt) {
+function archivo2(evt) {
   var files = evt.target.files; // FileList object
 
   //Obtenemos la imagen del campo "file". 
@@ -673,4 +674,4 @@ function archivo(evt) {
   }
 }
 
-document.getElementById('filePrueba').addEventListener('change', archivo, false);
+document.getElementById('filePrueba').addEventListener('change', archivo2, false);

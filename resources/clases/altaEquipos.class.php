@@ -146,6 +146,8 @@
         }
 
         public function upload($doc){
+            session_start();
+            $username           = $_SESSION['login'];
 
             date_default_timezone_set("America/Mexico_City");
 
@@ -155,7 +157,7 @@
             chdir('../');
             $dir=getcwd();
             
-            $ruta=$dir."/clases/archivosJugadoras/".$nom2.".jpg";
+            $ruta=$dir . "/clases/archivosJugadoras/". $username . '_' . $nom2 . ".jpg";
 
             //var_dump($doc);
 
@@ -165,7 +167,7 @@
 
                 if(copy($doc["tmp_name"],$ruta)){
 
-                    $resultado = $nom2.".jpg";
+                    $resultado = $username . '_' . $nom2 . ".jpg";
 
                     return json_encode($resultado);
                     
