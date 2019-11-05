@@ -115,15 +115,15 @@
                   <!--<output id="list"></output>-->
                 </form>
                 <div class="col-lg-12 col-md-12 col-12">
-                    <button class='btn btn-success ' id='upload2p' style="margin:auto; width:100%;margin-top: 15px;"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Subir Imagen</button>
-                  </div>
+                  <button class='btn btn-success ' id='upload2p' style="margin:auto; width:100%;margin-top: 15px;"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Subir Imagen</button>
+                </div>
                 <input type="submit" style="display: none;" value="Enviar" />
               </div>
             </div>
           </div>
           <div class="modal-footer auto-overflow">
             <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">CERRAR</button>
-            <button type="submit" class="btn btn-primary btn_modal_contratantes" id="btnAgregarNew">AGREGAR USUARIO</button>
+            <button type="submit" class="btn btn-primary btn_modal_contratantes" id="btnAgregarNew">AGREGAR JUGADORA</button>
           </div>
         </div>
       </div>
@@ -138,39 +138,40 @@
               <span aria-hidden="true" style="color: white">&times;</span>x</button>
             <h4 class="modal-title" id="title_contratantes">EDITAR JUGADORA</h4>
           </div>
-            <div class="modal-body" id="div_modal_body">
-              <input type="text" class="form-control necesary" id="txtIdE" name="" value="" placeholder="Nombre De Jugadora*" style="display: none">
-              <div class="row">
-                <div class="col-lg-8 col-md-8 col-12">
-                  <div class="col-lg-12" style="margin-top: 15px">
-                    <label style="width: 100%;"><b>Nombre:</b></label>
-                    <input type="text" class="form-control necesary" id="txtNombreE" name="" value="" placeholder="Nombre De Jugadora*">
-                  </div>
-                  <div class="col-lg-12" style="margin-top: 15px">
-                    <label style="width: 100%;"><b>Teléfono:</b></label>
-                    <input type="tel" class="form-control necesary" id="txtTelefonoE" name="" value="" placeholder="Teléfono*">
-                  </div>
-                  <div class="col-lg-12 text-center" style="margin-top: 15px">
-                    <button type="button" style="width: 60%;" class="btn btn-info"><i class="fa fa-upload" aria-hidden="true"></i></i>&nbsp;Subir Documento</button>
-                    <form action="upload.php" method="post" enctype="multipart/form-data">
-                      Select image to upload:
-                      <input type="file" name="fileToUpload" id="fileToUpload">
-                      <input type="submit" value="Upload Image" name="submit">
-                    </form>
-                  </div>
+          <div class="modal-body" id="div_modal_body">
+            <input type="text" class="form-control necesary" id="txtIdE" name="" value="" placeholder="Nombre De Jugadora*" style="display: none">
+            <div class="row">
+              <div class="col-lg-8 col-md-8 col-12">
+                <div class="col-lg-12" style="margin-top: 15px">
+                  <label style="width: 100%;"><b>Nombre:</b></label>
+                  <input type="text" class="form-control necesary" id="txtNombreE" name="" value="" placeholder="Nombre De Jugadora*">
                 </div>
-                <div class="col-lg-4 col-md-4 col-12 text-center">
-                  <div id="image-wrapper" class="image-wrapper" style="margin: auto; width: 250px; height: 250px;">
-                    <img src="assets/images/usuaria.jpg" style="width: 100%; height: 100%;" alt="">
-                  </div>
-                  <button type="button" class="btn btn-primary" style="margin:auto; width:80%;margin-top: 15px;"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Subir Imagen</button>
+                <div class="col-lg-12" style="margin-top: 15px">
+                  <label style="width: 100%;"><b>Teléfono:</b></label>
+                  <input type="tel" class="form-control necesary" id="txtTelefonoE" name="" value="" placeholder="Teléfono*">
+                </div>
+                <div class="col-lg-12 text-center" style="margin-top: 15px">
                 </div>
               </div>
+              <div class="col-lg-4 col-md-4 col-12 text-center">
+                <div id="image-wrapper" class="image-wrapper" style="margin: auto; width: 250px; height: 250px;">
+                  <img src="assets/images/usuaria.jpg" style="width: 100%; height: 100%;" alt="">
+                </div>
+                <form id="myform" enctype="multipart/form-data">
+                  <input class="form-control-file" id="filePrueba" name='filePrueba' type="file" accept='image/jpeg, image/x-png, image/jpg' style="display: none;">
+                  <!--<output id="list"></output>-->
+                </form>
+                <div class="col-lg-12 col-md-12 col-12">
+                  <button class='btn btn-success ' id='upload2p' style="margin:auto; width:100%;margin-top: 15px;"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Subir Imagen</button>
+                </div>
+                <input type="submit" style="display: none;" value="Enviar" />
+              </div>
             </div>
-            <div class="modal-footer auto-overflow">
-              <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">CERRAR</button>
-              <button type="submit" class="btn btn-primary btn_modal_contratantes" id="btnEditar">EDITAR JUGADORA</button>
-            </div>
+          </div>
+          <div class="modal-footer auto-overflow">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">CERRAR</button>
+            <button type="submit" class="btn btn-primary btn_modal_contratantes" id="btnEditar">EDITAR JUGADORA</button>
+          </div>
         </div>
       </div>
     </div>

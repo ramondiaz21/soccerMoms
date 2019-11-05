@@ -112,12 +112,13 @@
         {
             $id        = $info['id'];
             $nombre    = $info['nombre'];
-            $telefono    = $info['telefono'];
+            $telefono  = $info['telefono'];
+            $imagen    = $info['imagen'];
                       
             
             //$fecha_registro = $info['fecha_registro'];
 
-            $consulta = "UPDATE jugadoras SET nombre = '$nombre', telefono = '$telefono' WHERE id = $id";
+            $consulta = "UPDATE jugadoras SET nombre = '$nombre', telefono = '$telefono', imagen = '$imagen' WHERE id = $id";
             /*$consulta = "CALL SP_EDITAR_USUARIOS('$id', '$username', '$password', '$nombre',
             '$rol','$id_equipo','$nombreEquipo')";*/
             //var_dump($consulta);exit;
