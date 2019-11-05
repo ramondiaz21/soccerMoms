@@ -169,7 +169,7 @@ function getJugadora(id) {
         imagenJugadora = data[0][3];
         console.log(imagenJugadora);
         if (imagenJugadora != "") {
-          $("#modEditarJugadora img").attr('src', 'resources/clases/archivosJugadoras/' + imagenJugadora);
+          $("#modEditarJugadora img").attr('src', 'resources/clases/imagenesJugadoras/' + imagenJugadora);
         } else {
           $("#modEditarJugadora img").attr('src', 'assets/images/usuaria.jpg');
         }
@@ -675,3 +675,82 @@ function archivo2(evt) {
 }
 
 document.getElementById('filePrueba').addEventListener('change', archivo2, false);
+
+
+
+var archivos;
+
+$(document).on('change', '#fileArchivo', function(event) {
+  event.preventDefault();
+
+  var formData = new FormData($("#myformArchivos")[0]);
+  console.log(formData);
+
+  $.ajax({
+    url: 'resources/routes/routeAltaEquiposAlt.php',
+    type: 'post',
+    data: formData,
+    contentType: false,
+    processData: false,
+    dataType: 'JSON',
+
+    beforeSend: function(data) {
+
+    },
+
+    error: function(error) {
+      console.log(error);
+      //toast1("Error!", ajaxError, 8000, "error");
+      removeSpinner();
+    },
+
+    success: function(data) {
+      console.log(data);
+      removeSpinner();
+      if (data == null) {
+        toast1("Atención!", "Error al cargar el archivo", 4000, "warning");
+
+      } else {
+        archivos = data;
+        console.log(archivos);
+        $("#fileArchivo").val("");
+        toast1("Éxito!", "El archivo se cargo correctamente", 3000, "success");
+      }
+
+    }
+  });
+
+});
+
+$(document).on('click', '#btnSubirArchivo', function(e) {
+  e.preventDefault();
+
+  $('#fileArchivo').trigger("click");
+
+});
+
+function archivo3(evt) {
+  $("#btnBorrar1").css('display', 'block');
+  var files = evt.target.files; // FileList object
+
+  //Obtenemos la imagen del campo "file". 
+  for (var i = 0, f; f = files[i]; i++) {
+    //Solo admitimos imágenes.
+    if (!f.type.match('image.*')) {
+      continue;
+    }
+
+    var reader = new FileReader();
+
+    reader.onload = (function(theFile) {
+      return function(e) {
+        // Creamos la imagen.
+        document.getElementById("img_galeria1").innerHTML = ['<img class="thumb" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+      };
+    })(f);
+
+    reader.readAsDataURL(f);
+  }
+}
+
+document.getElementById('fileArchivo').addEventListener('change', archivo3, false);

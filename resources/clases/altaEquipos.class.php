@@ -157,6 +157,44 @@
             chdir('../');
             $dir=getcwd();
             
+            $ruta=$dir . "/clases/imagenesJugadoras/". $username . '_' . $nom2 . ".jpg";
+
+            //var_dump($doc);
+
+            if ($doc["type"]=="image/jpeg" or $doc["type"]== "image/png" or $doc["type"]== "image/jpg"){
+
+                //if(move_uploaded_file($doc["tmp_name"],$ruta)){
+
+                if(copy($doc["tmp_name"],$ruta)){
+
+                    $resultado = $username . '_' . $nom2 . ".jpg";
+
+                    return json_encode($resultado);
+                    
+                }
+
+            }
+            else{
+
+                $resultado = null;
+
+                return json_encode($resultado);
+            }
+
+        }
+
+        public function uploadArchivos($doc){
+            session_start();
+            $username           = $_SESSION['login'];
+
+            date_default_timezone_set("America/Mexico_City");
+
+            $nom2=date('d-m-Y_H,i,s');
+
+            getcwd();
+            chdir('../');
+            $dir=getcwd();
+            
             $ruta=$dir . "/clases/archivosJugadoras/". $username . '_' . $nom2 . ".jpg";
 
             //var_dump($doc);

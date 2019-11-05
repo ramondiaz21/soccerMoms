@@ -69,3 +69,36 @@ tbody {
   height: 100%;
   width: 100%;
 }
+
+.imagenes-uploads .image-wrapper {
+  width: 150px;
+  height: 150px;
+  margin: auto;
+  background-color: gray;
+  position: relative;
+}
+
+.imagenes-uploads .image-wrapper:hover {
+  cursor: pointer;
+}
+
+.imagenes-uploads .fa-plus {
+  color: white;
+  font-size: 50px;
+}
+
+.imagenes-uploads .btn-danger {
+  color: white;
+    border-radius: 100%;
+    position: absolute;
+    top: -15px;
+    right: 0;
+    z-index: 65454;
+}
+
+.imagenes-uploads .centerer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -102,7 +102,22 @@
                 <div class="col-lg-12" style="margin-top: 15px">
                   <input type="tel" class="form-control necesary" id="txtTelefono" name="" value="" placeholder="Teléfono*">
                 </div>
-                <div class="col-lg-12 text-center" style="margin-top: 15px">
+                <div class="row spaceFormAddMembresia imagenes-uploads">
+                  <h3 class="col-lg-12" id="galeriah3">Archivos</h3>
+                  <div class="col-lg-4 col-md-4 col-12 divisions" style="margin: 10px 0" id="divGaleria1">
+                    <button id="btnBorrar1" onclick="borrarGaleria(1)" class="btn btn-danger" style="display:none"><i class="fa fa-times"></i></button>
+                    <a id="btnSubirArchivo">
+                      <div class="image-wrapper position-relative" id="img_galeria1">
+                        <div class="centerer">
+                          <span class="fa fa-plus"></span>
+                        </div>
+                      </div>
+                    </a>
+                    <form id="myformArchivos" enctype="multipart/form-data">
+                      <input class="form-control-file" id="fileArchivo" name='fileArchivo' type="file" accept='image/jpeg, image/x-png, image/jpg' style="display: none;">
+                      <!--<output id="list"></output>-->
+                    </form>
+                  </div>
                 </div>
               </div>
               <div class="col-lg-4 col-md-4 col-12 text-center">
@@ -150,7 +165,18 @@
                   <label style="width: 100%;"><b>Teléfono:</b></label>
                   <input type="tel" class="form-control necesary" id="txtTelefonoE" name="" value="" placeholder="Teléfono*">
                 </div>
-                <div class="col-lg-12 text-center" style="margin-top: 15px">
+                <div class="row spaceFormAddMembresia imagenes-uploads">
+                  <h3 class="col-lg-12" id="galeriah3">Galería</h3>
+                  <div class="col-lg-3 col-md-3 col-12 divisions" style="margin: 10px 0" id="divGaleria1">
+                    <button id="btnBorrar1" onclick="borrarGaleria(1)" class="btn btn-danger" style="display:none"><i class="fa fa-times"></i></button>
+                    <a id="upload2G">
+                      <div class="image-wrapper position-relative" id="img_galeria1">
+                        <div class="centerer">
+                          <span class="fa fa-plus"></span>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
                 </div>
               </div>
               <div class="col-lg-4 col-md-4 col-12 text-center">
