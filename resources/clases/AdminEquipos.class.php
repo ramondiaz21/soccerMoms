@@ -91,7 +91,7 @@
             $id         = $info['id'];
             $status     = $info['status'];
 
-            $consulta = "SELECT j.id,j.nombre, j.telefono,j.creacion,j.status
+            $consulta = "SELECT j.id,j.nombre, j.telefono,j.imagen,j.creacion,j.status
                            FROM usuarios u
                            LEFT JOIN equipos e ON e.usuario = u.id
                            LEFT JOIN jugadoras j ON j.equipo = e.id

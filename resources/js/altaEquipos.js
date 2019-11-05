@@ -6,6 +6,9 @@ var error = "Ocurrió un error insesperado en el sitio, por favor intentelo mas 
 var success = "La accion se ralizó con exito";
 var datosIncorrectos = "Datos incorrectos, vuelve a intentarlo.";
 
+var imagenJugadora;
+var evidencia;
+
 function getEquipos() {
 
   $.ajax({
@@ -131,8 +134,6 @@ function loadData($info) {
     }
   });
 }
-
-var imagenJugadora;
 
 function getJugadora(id) {
 
@@ -574,8 +575,6 @@ function busqueda() {
     }
   });
 }
-
-var evidencia;
 
 $(document).on('change', '#filePrueba', function(event) {
   event.preventDefault();

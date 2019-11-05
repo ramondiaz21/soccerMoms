@@ -114,14 +114,9 @@
                   <input class="form-control-file" id="filePrueba" name='filePrueba' type="file" accept='image/jpeg, image/x-png, image/jpg' style="display: none;">
                   <!--<output id="list"></output>-->
                 </form>
-                <div class="row">
-                  <div class="col-lg-6 col-md-6 col-12">
-                    <button class='btn btn-success ' id='upload2p' style="margin:auto; width:100%;margin-top: 15px;"><i class="fa fa-cloud-upload" aria-hidden="true"></i>Subir Imagen</button>
+                <div class="col-lg-12 col-md-12 col-12">
+                    <button class='btn btn-success ' id='upload2p' style="margin:auto; width:100%;margin-top: 15px;"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Subir Imagen</button>
                   </div>
-                  <div class="col-lg-6 col-md-6 col-12">
-                    <button class='btn btn-warning ' id='reloadp' style="display: none;margin:auto; width:100%;margin-top: 15px;">Actualizar Imagen</button>
-                  </div>
-                </div>
                 <input type="submit" style="display: none;" value="Enviar" />
               </div>
             </div>

@@ -285,6 +285,8 @@ function agregaEquipo() {
   });
 }
 
+var imagenJugadora;
+
 function getJugadora(id) {
 
   var parametro = {
@@ -316,6 +318,14 @@ function getJugadora(id) {
         $('#txtIdE').val(data[0][0]);
         $('#txtNombreE').val(data[0][1]);
         $('#txtTelefonoE').val(data[0][2]);
+        imagenJugadora = data[0][3];
+        console.log(imagenJugadora);
+        if (imagenJugadora != "") {
+          $("#modEditarJugadora img").attr('src', 'resources/clases/archivosJugadoras/' + imagenJugadora);
+        } else {
+          $("#modEditarJugadora img").attr('src', 'assets/images/usuaria.jpg');
+        }
+
       } else {
         $('tbody').empty();
         toast1("Atencion!", "No hay jugadora para mostrar", 5000, "error");
