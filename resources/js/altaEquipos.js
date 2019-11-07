@@ -169,9 +169,9 @@ function getJugadora(id) {
         imagenJugadora = data[0][3];
         console.log(imagenJugadora);
         if (imagenJugadora != "") {
-          $("#modEditarJugadora img").attr('src', 'resources/clases/imagenesJugadoras/' + imagenJugadora);
+          $("#modEditarJugadora #imagenPerfil").attr('src', 'resources/clases/imagenesJugadoras/' + imagenJugadora);
         } else {
-          $("#modEditarJugadora img").attr('src', 'assets/images/usuaria.jpg');
+          $("#modEditarJugadora #imagenPerfil").attr('src', 'assets/images/usuaria.jpg');
         }
 
       } else {
@@ -485,7 +485,8 @@ function removeModals() {
 function cleanDataModals() {
   $("#modAgregarJugadora input.form-control").val("");
   $("#modAgregarJugadora select.form-control").val("");
-  $("#modAgregarJugadora img").attr('src', 'assets/images/usuaria.jpg');
+  $("#modAgregarJugadora #imagenPerfil").attr('src', 'assets/images/usuaria.jpg');
+  $("#modAgregarJugadora #img_galeria img").val("");
 }
 
 $(document).on('keyup', '#txt_busqueda', function(e) {
@@ -610,6 +611,11 @@ $(document).on('change', '#filePrueba', function(event) {
       } else {
         evidencia = data;
         console.log(evidencia);
+        var post =
+          '<img id="imagenPerfil" src="resources/clases/imagenesJugadoras/' + evidencia + '" style="width: 100%; height: 100%;" alt="">';
+        console.log(post);
+        $('#imagenPerfil').replaceWith(post);
+        //$("#imagenPerfil").css('display', 'none');
         $("#filePrueba").val("");
         toast1("Éxito!", "La imagen de perfil se cargo correctamente", 3000, "success");
       }
@@ -626,7 +632,7 @@ $(document).on('click', '#upload2p', function(e) {
 
 });
 
-function archivo(evt) {
+/*function archivo(evt) {
   var files = evt.target.files; // FileList object
 
   //Obtenemos la imagen del campo "file". 
@@ -649,7 +655,7 @@ function archivo(evt) {
   }
 }
 
-document.getElementById('filePrueba').addEventListener('change', archivo, false);
+document.getElementById('filePrueba').addEventListener('change', archivo, false);*/
 
 function archivo2(evt) {
   var files = evt.target.files; // FileList object
@@ -713,6 +719,22 @@ $(document).on('change', '#fileArchivo', function(event) {
       } else {
         archivos = data;
         console.log(archivos);
+        $("#img_galeria" + data).innerHTML = '<img src="resources/clases/archivosJugadoras/' + data + '" alt="" style="width: 100%;">';
+
+        //$("#btnBorrar" + data).style.display = "inline";
+        var div = data + 1;
+        $("#divGaleria" + data).after(`
+              <div class="col-lg-3 col-md-3 col-12 divisions" id="divGaleria` + div + `">
+                  <button id="btnBorrar` + div + `" onclick="borrarGaleria(` + div + `)" class="btn btn-danger" style="display:none"><i class="fa fa-times"></i></button>
+                  <a id="upload2G">
+                    <div class="image-wrapper position-relative" id="img_galeria` + div + `">
+                      <div class="centerer" >
+                        <span class="fa fa-plus"></span>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+            `);
         $("#fileArchivo").val("");
         toast1("Éxito!", "El archivo se cargo correctamente", 3000, "success");
       }
@@ -730,7 +752,7 @@ $(document).on('click', '#btnSubirArchivo', function(e) {
 });
 
 function archivo3(evt) {
-  $("#btnBorrar1").css('display', 'block');
+  $("#btnBorrar").css('display', 'block');
   var files = evt.target.files; // FileList object
 
   //Obtenemos la imagen del campo "file". 
@@ -745,7 +767,7 @@ function archivo3(evt) {
     reader.onload = (function(theFile) {
       return function(e) {
         // Creamos la imagen.
-        document.getElementById("img_galeria1").innerHTML = ['<img class="thumb" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+        document.getElementById("img_galeria").innerHTML = ['<img class="thumb" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
       };
     })(f);
 
