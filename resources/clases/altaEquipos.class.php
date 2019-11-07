@@ -78,8 +78,8 @@
             $telefono   = $info['telefono'];
             $imagen   = $info['imagen'];
 
-            $consulta = "INSERT INTO jugadoras (equipo,nombre,telefono,imagen,status) 
-                        VALUES('$equipo','$nombre','$telefono','$imagen',1)";
+            $consulta = "INSERT INTO jugadoras (equipo,nombre,telefono,status) 
+                        VALUES('$equipo','$nombre','$telefono',1)";
 
             // echo $consulta; exit;
             //var_dump($consulta);exit;

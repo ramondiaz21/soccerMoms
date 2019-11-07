@@ -102,7 +102,7 @@
                 <div class="col-lg-12" style="margin-top: 15px">
                   <input type="tel" class="form-control necesary" id="txtTelefono" name="" value="" placeholder="Teléfono*">
                 </div>
-                <div class="row spaceFormAddMembresia imagenes-uploads">
+                <div class="row spaceFormAddMembresia imagenes-uploads" style="display: none">
                   <h3 class="col-lg-12" id="galeriah">Archivos</h3>
                   <div id="new-wrapper">
                     <div class="col-lg-6 col-md-6 col-12 divisions" style="margin: 10px 0" id="divGaleria">
@@ -140,7 +140,7 @@
               </div>
             </div>
           </div>
-          <div class="modal-footer auto-overflow">
+          <div class="modal-footer auto-overflow" style="display: none">
             <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">CERRAR</button>
             <button type="submit" class="btn btn-primary btn_modal_contratantes" id="btnAgregarNew">AGREGAR JUGADORA</button>
           </div>

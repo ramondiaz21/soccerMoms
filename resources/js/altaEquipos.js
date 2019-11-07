@@ -330,7 +330,7 @@ function agregaEquipo() {
     equipo: $('#select_equipo').val(),
     nombre: $('#txtNombre').val(),
     telefono: $('#txtTelefono').val(),
-    imagen: evidencia
+    //imagen: evidencia
   }
   console.log(parametro);
   $.ajax({
@@ -351,24 +351,24 @@ function agregaEquipo() {
     },
     success: function(data) {
       ////console.log(data);
-      cleanDataModals();
-      removeModals();
+      //cleanDataModals();
+      //removeModals();
       removeSpinner();
 
-      if (data != "") {
+      /*if (data != "") {
         loadData();
         toast1("éxito", "Se agrego correctamente", 5000, "success");
       } else {
         $('tbody').empty();
         toast1("Atencion!", "No se pudo agregar", 5000, "error");
-      }
+      }*/
     }
   });
 }
 
 
 
-$(document).on('click', '#btnAgregarNew', function(e) {
+$(document).on('click', '#upload2p', function(e) {
 
   e.preventDefault();
   var flag = true;
@@ -401,7 +401,7 @@ $(document).on('click', '#btnAgregarNew', function(e) {
   });
 
   if (flag == false || cont >= 1) {
-    toast1("Error!", "Por favor llena todos los campos", 5000, "error");
+    toast1("Error!", "Por favor llena los campos de nombre y telefono", 5000, "error");
   } else {
     agregaEquipo();
   }
@@ -441,7 +441,7 @@ $(document).on('click', '#btnEditar', function(e) {
   });
 
   if (flag == false || cont >= 1) {
-    toast1("Error!", "Por favor llena todos los campos", 5000, "error");
+    toast1("Error!", "Por favor llena los campos de nombre y telefono", 5000, "error");
   } else {
     guardarEditarJugadora();
   }
@@ -615,6 +615,8 @@ $(document).on('change', '#filePrueba', function(event) {
           '<img id="imagenPerfil" src="resources/clases/imagenesJugadoras/' + evidencia + '" style="width: 100%; height: 100%;" alt="">';
         console.log(post);
         $('#imagenPerfil').replaceWith(post);
+        $(".imagenes-uploads").css('display', 'block');
+        $(".modal-footer").css('display', 'block');
         //$("#imagenPerfil").css('display', 'none');
         $("#filePrueba").val("");
         toast1("Éxito!", "La imagen de perfil se cargo correctamente", 3000, "success");
@@ -759,6 +761,7 @@ $(document).on('change', '#fileArchivo', function(event) {
           '</div>';
         $('#new-wrapper').append(post2);
         $('#fileArchivo').val("");
+
         console.log(fileArchivo);
         toast1("Éxito!", "El archivo se cargo correctamente", 3000, "success");
       }
