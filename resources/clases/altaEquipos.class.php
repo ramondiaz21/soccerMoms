@@ -78,10 +78,11 @@
             $telefono   = $info['telefono'];
             $imagen   = $info['imagen'];
 
-            $consulta = "INSERT INTO jugadoras (equipo,nombre,telefono,status) 
+            $consulta = "INSERT INTO jugadoras (equipo,nombre,telefono,imagen,status) 
                         VALUES('$equipo','$nombre','$telefono','$imagen',1)";
 
             // echo $consulta; exit;
+            //var_dump($consulta);exit;
             return DBConnection::query($consulta);
             
         }
@@ -95,7 +96,7 @@
             $id         = $info['id'];
             $status     = $info['status'];
 
-            $consulta = "SELECT j.id,j.nombre, j.telefono,j.creacion,j.status
+            $consulta = "SELECT j.id,j.nombre, j.telefono,j.imagen,j.creacion,j.status
                            FROM usuarios u
                            LEFT JOIN equipos e ON e.usuario = u.id
                            LEFT JOIN jugadoras j ON j.equipo = e.id
@@ -111,12 +112,13 @@
         {
             $id        = $info['id'];
             $nombre    = $info['nombre'];
-            $telefono    = $info['telefono'];
+            $telefono  = $info['telefono'];
+            $imagen    = $info['imagen'];
                       
             
             //$fecha_registro = $info['fecha_registro'];
 
-            $consulta = "UPDATE jugadoras SET nombre = '$nombre', telefono = '$telefono' WHERE id = $id";
+            $consulta = "UPDATE jugadoras SET nombre = '$nombre', telefono = '$telefono', imagen = '$imagen' WHERE id = $id";
             /*$consulta = "CALL SP_EDITAR_USUARIOS('$id', '$username', '$password', '$nombre',
             '$rol','$id_equipo','$nombreEquipo')";*/
             //var_dump($consulta);exit;
@@ -144,6 +146,8 @@
         }
 
         public function upload($doc){
+            session_start();
+            $username           = $_SESSION['login'];
 
             date_default_timezone_set("America/Mexico_City");
 
@@ -153,17 +157,17 @@
             chdir('../');
             $dir=getcwd();
             
-            $ruta=$dir."/archivosJugadoras/".$nom2.".jpg";
+            $ruta=$dir . "/clases/imagenesJugadoras/". $username . '_' . $nom2 . ".jpg";
 
             //var_dump($doc);
 
-            if ($doc["type"]=="image/*"){
+            if ($doc["type"]=="image/jpeg" or $doc["type"]== "image/png" or $doc["type"]== "image/jpg"){
 
                 //if(move_uploaded_file($doc["tmp_name"],$ruta)){
 
                 if(copy($doc["tmp_name"],$ruta)){
 
-                    $resultado = $nom2.".jpg";
+                    $resultado = $username . '_' . $nom2 . ".jpg";
 
                     return json_encode($resultado);
                     
@@ -179,63 +183,59 @@
 
         }
 
-        /*private static function upload($info){
-
-            $body = $_POST['info'];
-
-            $doc = json_decode($body,TRUE);
+        public function uploadArchivos($doc){
+            session_start();
+            $username           = $_SESSION['login'];
 
             date_default_timezone_set("America/Mexico_City");
 
             $nom2=date('d-m-Y_H,i,s');
 
-            //Main::log($nom2);
-
+            getcwd();
+            chdir('../');
             $dir=getcwd();
             
-            $ruta=$dir.'/estudios/'.$nom2.".pdf";
+            $ruta=$dir . "/clases/archivosJugadoras/". $username . '_' . $nom2 . ".jpg";
 
-            //$ser= $_SERVER['DOCUMENT_ROOT'];
+            //var_dump($doc);
 
-
-
-            if ($doc["type"]=="application/pdf"){
+            if ($doc["type"]=="image/jpeg" or $doc["type"]== "image/png" or $doc["type"]== "image/jpg"){
 
                 //if(move_uploaded_file($doc["tmp_name"],$ruta)){
 
                 if(copy($doc["tmp_name"],$ruta)){
 
-                
+                    $resultado = $username . '_' . $nom2 . ".jpg";
 
-                $resultado = $nom2;
-
-                $response = array("estado" => "success","resultado" => $resultado); 
-
-                return $response;
+                    return json_encode($resultado);
+                    
+                }
 
             }
+            else{
 
-                else
+                $resultado = null;
 
-                $resultado = "Error al cargar";
-
-                $response = array("estado" => "unknow_error","resultado" => $resultado);    
-
-                return $response;
-
+                return json_encode($resultado);
             }
 
-            else
+        }
 
-                $resultado = "El archivo no es pdf";
-
-                $response = array("estado" => "unknow_error","resultado" => $resultado);    
-
-                return $response;
-
+        public static function agregarArchivoDetalles($info)
+        {
+            session_start();
             
+            $id_jugadora     = $info['id_jugadora'];
+            $archivo     = $info['archivo'];
 
-        }*/
+            $consulta = "INSERT INTO archivo_detalles (id_jugadora,archivo) 
+                        VALUES('$id_jugadora','$archivo')";
+
+            // echo $consulta; exit;
+            //var_dump($consulta);exit;
+            return DBConnection::query($consulta);
+            
+        }
 
 
         
