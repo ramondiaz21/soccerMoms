@@ -221,63 +221,21 @@
 
         }
 
-        /*private static function upload($info){
-
-            $body = $_POST['info'];
-
-            $doc = json_decode($body,TRUE);
-
-            date_default_timezone_set("America/Mexico_City");
-
-            $nom2=date('d-m-Y_H,i,s');
-
-            //Main::log($nom2);
-
-            $dir=getcwd();
+        public static function agregarArchivoDetalles($info)
+        {
+            session_start();
             
-            $ruta=$dir.'/estudios/'.$nom2.".pdf";
+            $id_jugadora     = $info['id_jugadora'];
+            $archivo     = $info['archivo'];
 
-            //$ser= $_SERVER['DOCUMENT_ROOT'];
+            $consulta = "INSERT INTO archivo_detalles (id_jugadora,archivo) 
+                        VALUES('$id_jugadora','$archivo')";
 
-
-
-            if ($doc["type"]=="application/pdf"){
-
-                //if(move_uploaded_file($doc["tmp_name"],$ruta)){
-
-                if(copy($doc["tmp_name"],$ruta)){
-
-                
-
-                $resultado = $nom2;
-
-                $response = array("estado" => "success","resultado" => $resultado); 
-
-                return $response;
-
-            }
-
-                else
-
-                $resultado = "Error al cargar";
-
-                $response = array("estado" => "unknow_error","resultado" => $resultado);    
-
-                return $response;
-
-            }
-
-            else
-
-                $resultado = "El archivo no es pdf";
-
-                $response = array("estado" => "unknow_error","resultado" => $resultado);    
-
-                return $response;
-
+            // echo $consulta; exit;
+            //var_dump($consulta);exit;
+            return DBConnection::query($consulta);
             
-
-        }*/
+        }
 
 
         

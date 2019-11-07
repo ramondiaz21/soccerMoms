@@ -37,6 +37,9 @@ switch ($action) {
     case 'darAlta':
         echo json_encode($Equipos->darAlta($info));
         break;
+    case 'agregarArchivoDetalles':
+        echo json_encode($Equipos->agregarArchivoDetalles($info));
+        break;
     case 'uploadArchivos':
             $doc = $_FILES["fileArchivo"];
             //var_dump($doc);exit();

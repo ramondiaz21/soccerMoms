@@ -688,6 +688,7 @@ var archivos;
 var bandera = 0;
 var fileArchivo;
 fileArchivo = $('#fileArchivo').val();
+
 $(document).on('change', '#fileArchivo', function(event) {
   event.preventDefault();
 
@@ -724,7 +725,7 @@ $(document).on('change', '#fileArchivo', function(event) {
         archivos = data;
         console.log(archivos);
         var post =
-          '<button id="btnBorrar" onclick="borrarGaleria" class="btn btn-danger"><i class="fa fa-times"></i></button>' +
+          '<button id="btnBorrar' + bandera + '" onclick="borrarGaleria(' + bandera + ')" class="btn btn-danger"><i class="fa fa-times"></i></button>' +
           '<a id="btnSubirArchivo">' +
           '<div class="image-wrapper position-relative" id="img_galeria">' +
           '<img id="imagenPerfil" src="resources/clases/archivosJugadoras/' + archivos + '" style="width: 100%; height: 100%;" alt="">' +
@@ -741,7 +742,7 @@ $(document).on('change', '#fileArchivo', function(event) {
         $('#imagenNueva').replaceWith(post);
         var post2 =
           '<div class="col-lg-6 col-md-6 col-12 divisions" style="margin: 10px 0" id="divGaleria">' +
-          '<button id="btnBorrar' + bandera + '" onclick="borrarGaleria" class="btn btn-danger" style="display:none"><i class="fa fa-times"></i></button>' +
+          '<button id="btnBorrar" onclick="borrarGaleria" class="btn btn-danger" style="display:none"><i class="fa fa-times"></i></button>' +
           '<a id="btnSubirArchivo">' +
           '<div class="image-wrapper position-relative" id="img_galeria">' +
           '<div class="centerer" id="imagenNueva">' +
@@ -773,6 +774,46 @@ $(document).on('click', '#btnSubirArchivo', function(e) {
   $('#fileArchivo').trigger("click");
 
 });
+
+function agregarArchivoDetalles() {
+
+  var parametro = {
+    id_jugadora: $('#select_equipo').val(),
+    archivo: $('#txtNombre').val()
+  }
+  console.log(parametro);
+  $.ajax({
+    url: 'resources/routes/routeAltaEquipos.php',
+    type: 'POST',
+    data: {
+      info: parametro,
+      action: "agregarArchivoDetalles"
+    },
+    dataType: 'JSON',
+    beforeSend: function() {
+      showSpinner();
+    },
+    error: function(error) {
+      ////console.log(error);
+      toast1("Error!", error, 5000, "error");
+      removeSpinner();
+    },
+    success: function(data) {
+      ////console.log(data);
+      cleanDataModals();
+      removeModals();
+      removeSpinner();
+
+      if (data != "") {
+        loadData();
+        toast1("éxito", "Se agrego correctamente", 5000, "success");
+      } else {
+        $('tbody').empty();
+        toast1("Atencion!", "No se pudo agregar", 5000, "error");
+      }
+    }
+  });
+}
 
 /*function archivo3(evt) {
   $("#btnBorrar").css('display', 'block');
