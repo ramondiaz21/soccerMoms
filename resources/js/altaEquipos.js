@@ -6,6 +6,9 @@ var error = "Ocurrió un error insesperado en el sitio, por favor intentelo mas 
 var success = "La accion se ralizó con exito";
 var datosIncorrectos = "Datos incorrectos, vuelve a intentarlo.";
 
+var imagenJugadora;
+var evidencia;
+
 function getEquipos() {
 
   $.ajax({
@@ -163,6 +166,14 @@ function getJugadora(id) {
         $('#txtIdE').val(data[0][0]);
         $('#txtNombreE').val(data[0][1]);
         $('#txtTelefonoE').val(data[0][2]);
+        imagenJugadora = data[0][3];
+        console.log(imagenJugadora);
+        if (imagenJugadora != "") {
+          $("#modEditarJugadora #imagenPerfil").attr('src', 'resources/clases/imagenesJugadoras/' + imagenJugadora);
+        } else {
+          $("#modEditarJugadora #imagenPerfil").attr('src', 'assets/images/usuaria.jpg');
+        }
+
       } else {
         $('tbody').empty();
         toast1("Atencion!", "No hay jugadora para mostrar", 5000, "error");
@@ -176,7 +187,8 @@ function guardarEditarJugadora() {
   var parametro = {
     id: $('#txtIdE').val(),
     nombre: $('#txtNombreE').val(),
-    telefono: $('#txtTelefonoE').val()
+    telefono: $('#txtTelefonoE').val(),
+    imagen: evidencia
   }
   console.log(parametro);
   $.ajax({
@@ -318,7 +330,7 @@ function agregaEquipo() {
     equipo: $('#select_equipo').val(),
     nombre: $('#txtNombre').val(),
     telefono: $('#txtTelefono').val(),
-    imagen: nombreImagen
+    imagen: evidencia
   }
   console.log(parametro);
   $.ajax({
@@ -362,7 +374,7 @@ $(document).on('click', '#btnAgregarNew', function(e) {
   var flag = true;
   var cont = 0;
 
-  $('#formAgregar input.necesary').each(function(index, currentElement) {
+  $('#modAgregarJugadora input.necesary').each(function(index, currentElement) {
     var currentElement = $(this);
     var value = currentElement.val();
 
@@ -377,7 +389,7 @@ $(document).on('click', '#btnAgregarNew', function(e) {
     }
   });
 
-  $('#formAgregar input.necesary').keyup(function(currentElement) {
+  $('#modAgregarJugadora input.necesary').keyup(function(currentElement) {
     var currentElement = $(this);
     var value = currentElement.val();
 
@@ -401,7 +413,7 @@ $(document).on('click', '#btnEditar', function(e) {
   var flag = true;
   var cont = 0;
 
-  $('#formEditar input.necesary').each(function(index, currentElement) {
+  $('#modEditarJugadora input.necesary').each(function(index, currentElement) {
     var currentElement = $(this);
     var value = currentElement.val();
 
@@ -417,7 +429,7 @@ $(document).on('click', '#btnEditar', function(e) {
     }
   });
 
-  $('#formEditar input.necesary').keyup(function(currentElement) {
+  $('#modEditarJugadora input.necesary').keyup(function(currentElement) {
     var currentElement = $(this);
     var value = currentElement.val();
 
@@ -471,8 +483,10 @@ function removeModals() {
 }
 
 function cleanDataModals() {
-  $("#formAgregar input.form-control").val("");
-  $("#formAgregar select.form-control").val("");
+  $("#modAgregarJugadora input.form-control").val("");
+  $("#modAgregarJugadora select.form-control").val("");
+  $("#modAgregarJugadora #imagenPerfil").attr('src', 'assets/images/usuaria.jpg');
+  $("#modAgregarJugadora #img_galeria img").val("");
 }
 
 $(document).on('keyup', '#txt_busqueda', function(e) {
@@ -564,20 +578,15 @@ function busqueda() {
   });
 }
 
-var evidencia;
+$(document).on('change', '#filePrueba', function(event) {
+  event.preventDefault();
 
-/*$(document).on('change', '#filePrueba', function(e) {
-  e.preventDefault();
-
-  var formData = new FormData();
-  var files = $('#myform')[0].files[0];
-  $("#myform")[0]
+  var formData = new FormData($("#myform")[0]);
   console.log(formData);
 
   $.ajax({
     url: 'resources/routes/routeAltaEquipos.php',
-    type: 'POST',
-    async: true,
+    type: 'post',
     data: formData,
     contentType: false,
     processData: false,
@@ -589,51 +598,245 @@ var evidencia;
 
     error: function(error) {
       console.log(error);
-      toast1("Error!", error, 5000, "error");
+      //toast1("Error!", ajaxError, 8000, "error");
       removeSpinner();
     },
 
     success: function(data) {
+      console.log(data);
       removeSpinner();
-
       if (data == null) {
         toast1("Atención!", "Error al cargar la evidencia", 4000, "warning");
-      } else {
-        //evidencia = data;
 
-        //$("#filePrueba").val("");
-        toast1("Relizado!", "La evidencia se a cargado", 3000, "success");
+      } else {
+        evidencia = data;
+        console.log(evidencia);
+        var post =
+          '<img id="imagenPerfil" src="resources/clases/imagenesJugadoras/' + evidencia + '" style="width: 100%; height: 100%;" alt="">';
+        console.log(post);
+        $('#imagenPerfil').replaceWith(post);
+        //$("#imagenPerfil").css('display', 'none');
+        $("#filePrueba").val("");
+        toast1("Éxito!", "La imagen de perfil se cargo correctamente", 3000, "success");
       }
 
     }
   });
 
-});*/
-var nombreImagen;
-
-$(document).ready(function() {
-  $("#image").on('change', function() {
-    var formData = new FormData();
-    var files = $('#image')[0].files[0];
-    formData.append('file', files);
-    $.ajax({
-      url: 'resources/routes/routeAltaEquipos.php',
-      type: 'post',
-      data: formData,
-      contentType: false,
-      processData: false,
-      success: function(response) {
-        if (response != 0) {
-          console.log(response);
-          nombreImagen = response;
-          console.log(nombreImagen);
-          toast1("Relizado!", "La evidencia se a cargado", 3000, "success");
-          //$(".card-img-top").attr("src", response);
-        } else {
-          toast1("Atención!", "Error al cargar la evidencia", 4000, "warning");
-        }
-      }
-    });
-    return false;
-  });
 });
+
+$(document).on('click', '#upload2p', function(e) {
+  e.preventDefault();
+
+  $('#filePrueba').trigger("click");
+
+});
+
+/*function archivo(evt) {
+  var files = evt.target.files; // FileList object
+
+  //Obtenemos la imagen del campo "file". 
+  for (var i = 0, f; f = files[i]; i++) {
+    //Solo admitimos imágenes.
+    if (!f.type.match('image.*')) {
+      continue;
+    }
+
+    var reader = new FileReader();
+
+    reader.onload = (function(theFile) {
+      return function(e) {
+        // Creamos la imagen.
+        document.getElementById("list").innerHTML = ['<img class="thumb" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+      };
+    })(f);
+
+    reader.readAsDataURL(f);
+  }
+}
+
+document.getElementById('filePrueba').addEventListener('change', archivo, false);*/
+
+function archivo2(evt) {
+  var files = evt.target.files; // FileList object
+
+  //Obtenemos la imagen del campo "file". 
+  for (var i = 0, f; f = files[i]; i++) {
+    //Solo admitimos imágenes.
+    if (!f.type.match('image.*')) {
+      continue;
+    }
+
+    var reader = new FileReader();
+
+    reader.onload = (function(theFile) {
+      return function(e) {
+        // Creamos la imagen.
+        document.getElementById("image-wrapper").innerHTML = ['<img class="thumb" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+      };
+    })(f);
+
+    reader.readAsDataURL(f);
+  }
+}
+
+document.getElementById('filePrueba').addEventListener('change', archivo2, false);
+
+
+
+var archivos;
+var bandera = 0;
+var fileArchivo;
+fileArchivo = $('#fileArchivo').val();
+
+$(document).on('change', '#fileArchivo', function(event) {
+  event.preventDefault();
+
+  var formData = new FormData($("#myformArchivos")[0]);
+  console.log(formData);
+
+  $.ajax({
+    url: 'resources/routes/routeAltaEquiposAlt.php',
+    type: 'post',
+    data: formData,
+    contentType: false,
+    processData: false,
+    dataType: 'JSON',
+
+    beforeSend: function(data) {
+
+    },
+
+    error: function(error) {
+      console.log(error);
+      //toast1("Error!", ajaxError, 8000, "error");
+      removeSpinner();
+    },
+
+    success: function(data) {
+      console.log(data);
+      removeSpinner();
+      if (data == null) {
+        toast1("Atención!", "Error al cargar el archivo", 4000, "warning");
+
+      } else {
+        bandera += 1;
+        console.log(bandera);
+        archivos = data;
+        console.log(archivos);
+        var post =
+          '<button id="btnBorrar' + bandera + '" onclick="borrarGaleria(' + bandera + ')" class="btn btn-danger"><i class="fa fa-times"></i></button>' +
+          '<a id="btnSubirArchivo">' +
+          '<div class="image-wrapper position-relative" id="img_galeria">' +
+          '<img id="imagenPerfil" src="resources/clases/archivosJugadoras/' + archivos + '" style="width: 100%; height: 100%;" alt="">' +
+          '</div>' +
+          '</a>';
+        /*'<form id="myformArchivos" enctype="multipart/form-data">' +
+        '<input class="form-control-file" id="fileArchivo' + bandera + '" name="' +
+        'fileArchivo " type="file" accept="' +
+        'image / jpeg, image / x - png, image / jpg " style="display: none;">' +
+        '<!--<output id="list"></output>-->' +
+        '</form>';*/
+
+        console.log(post);
+        $('#imagenNueva').replaceWith(post);
+        var post2 =
+          '<div class="col-lg-6 col-md-6 col-12 divisions" style="margin: 10px 0" id="divGaleria">' +
+          '<button id="btnBorrar" onclick="borrarGaleria" class="btn btn-danger" style="display:none"><i class="fa fa-times"></i></button>' +
+          '<a id="btnSubirArchivo">' +
+          '<div class="image-wrapper position-relative" id="img_galeria">' +
+          '<div class="centerer" id="imagenNueva">' +
+          '<span class="fa fa-plus"></span>' +
+          '</div>' +
+          '</div>' +
+          '</a>' +
+          '<form id="myformArchivos" enctype="multipart/form-data">' +
+          '<input class="form-control-file" id="fileArchivo" name="' +
+          'fileArchivo" type="file" accept="' +
+          'image / jpeg, image / x - png, image / jpg " style="display: none;">' +
+          '<!--<output id="list"></output>-->' +
+          '</form>' +
+          '</div>';
+        $('#new-wrapper').append(post2);
+        $('#fileArchivo').val("");
+        console.log(fileArchivo);
+        toast1("Éxito!", "El archivo se cargo correctamente", 3000, "success");
+      }
+
+    }
+  });
+
+});
+
+$(document).on('click', '#btnSubirArchivo', function(e) {
+  e.preventDefault();
+
+  $('#fileArchivo').trigger("click");
+
+});
+
+function agregarArchivoDetalles() {
+
+  var parametro = {
+    id_jugadora: $('#select_equipo').val(),
+    archivo: $('#txtNombre').val()
+  }
+  console.log(parametro);
+  $.ajax({
+    url: 'resources/routes/routeAltaEquipos.php',
+    type: 'POST',
+    data: {
+      info: parametro,
+      action: "agregarArchivoDetalles"
+    },
+    dataType: 'JSON',
+    beforeSend: function() {
+      showSpinner();
+    },
+    error: function(error) {
+      ////console.log(error);
+      toast1("Error!", error, 5000, "error");
+      removeSpinner();
+    },
+    success: function(data) {
+      ////console.log(data);
+      cleanDataModals();
+      removeModals();
+      removeSpinner();
+
+      if (data != "") {
+        loadData();
+        toast1("éxito", "Se agrego correctamente", 5000, "success");
+      } else {
+        $('tbody').empty();
+        toast1("Atencion!", "No se pudo agregar", 5000, "error");
+      }
+    }
+  });
+}
+
+/*function archivo3(evt) {
+  $("#btnBorrar").css('display', 'block');
+  var files = evt.target.files; // FileList object
+
+  //Obtenemos la imagen del campo "file". 
+  for (var i = 0, f; f = files[i]; i++) {
+    //Solo admitimos imágenes.
+    if (!f.type.match('image.*')) {
+      continue;
+    }
+
+    var reader = new FileReader();
+
+    reader.onload = (function(theFile) {
+      return function(e) {
+        // Creamos la imagen.
+        document.getElementById("img_galeria").innerHTML = ['<img class="thumb" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+      };
+    })(f);
+
+    reader.readAsDataURL(f);
+  }
+}
+
+document.getElementById('fileArchivo').addEventListener('change', archivo3, false);*/
