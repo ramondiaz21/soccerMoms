@@ -685,7 +685,9 @@ document.getElementById('filePrueba').addEventListener('change', archivo2, false
 
 
 var archivos;
-
+var bandera = 0;
+var fileArchivo;
+fileArchivo = $('#fileArchivo').val();
 $(document).on('change', '#fileArchivo', function(event) {
   event.preventDefault();
 
@@ -717,25 +719,46 @@ $(document).on('change', '#fileArchivo', function(event) {
         toast1("Atención!", "Error al cargar el archivo", 4000, "warning");
 
       } else {
+        bandera += 1;
+        console.log(bandera);
         archivos = data;
         console.log(archivos);
-        $("#img_galeria" + data).innerHTML = '<img src="resources/clases/archivosJugadoras/' + data + '" alt="" style="width: 100%;">';
+        var post =
+          '<button id="btnBorrar" onclick="borrarGaleria" class="btn btn-danger"><i class="fa fa-times"></i></button>' +
+          '<a id="btnSubirArchivo">' +
+          '<div class="image-wrapper position-relative" id="img_galeria">' +
+          '<img id="imagenPerfil" src="resources/clases/archivosJugadoras/' + archivos + '" style="width: 100%; height: 100%;" alt="">' +
+          '</div>' +
+          '</a>';
+        /*'<form id="myformArchivos" enctype="multipart/form-data">' +
+        '<input class="form-control-file" id="fileArchivo' + bandera + '" name="' +
+        'fileArchivo " type="file" accept="' +
+        'image / jpeg, image / x - png, image / jpg " style="display: none;">' +
+        '<!--<output id="list"></output>-->' +
+        '</form>';*/
 
-        //$("#btnBorrar" + data).style.display = "inline";
-        var div = data + 1;
-        $("#divGaleria" + data).after(`
-              <div class="col-lg-3 col-md-3 col-12 divisions" id="divGaleria` + div + `">
-                  <button id="btnBorrar` + div + `" onclick="borrarGaleria(` + div + `)" class="btn btn-danger" style="display:none"><i class="fa fa-times"></i></button>
-                  <a id="upload2G">
-                    <div class="image-wrapper position-relative" id="img_galeria` + div + `">
-                      <div class="centerer" >
-                        <span class="fa fa-plus"></span>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-            `);
-        $("#fileArchivo").val("");
+        console.log(post);
+        $('#imagenNueva').replaceWith(post);
+        var post2 =
+          '<div class="col-lg-6 col-md-6 col-12 divisions" style="margin: 10px 0" id="divGaleria">' +
+          '<button id="btnBorrar' + bandera + '" onclick="borrarGaleria" class="btn btn-danger" style="display:none"><i class="fa fa-times"></i></button>' +
+          '<a id="btnSubirArchivo">' +
+          '<div class="image-wrapper position-relative" id="img_galeria">' +
+          '<div class="centerer" id="imagenNueva">' +
+          '<span class="fa fa-plus"></span>' +
+          '</div>' +
+          '</div>' +
+          '</a>' +
+          '<form id="myformArchivos" enctype="multipart/form-data">' +
+          '<input class="form-control-file" id="fileArchivo" name="' +
+          'fileArchivo" type="file" accept="' +
+          'image / jpeg, image / x - png, image / jpg " style="display: none;">' +
+          '<!--<output id="list"></output>-->' +
+          '</form>' +
+          '</div>';
+        $('#new-wrapper').append(post2);
+        $('#fileArchivo').val("");
+        console.log(fileArchivo);
         toast1("Éxito!", "El archivo se cargo correctamente", 3000, "success");
       }
 
@@ -751,7 +774,7 @@ $(document).on('click', '#btnSubirArchivo', function(e) {
 
 });
 
-function archivo3(evt) {
+/*function archivo3(evt) {
   $("#btnBorrar").css('display', 'block');
   var files = evt.target.files; // FileList object
 
@@ -775,4 +798,4 @@ function archivo3(evt) {
   }
 }
 
-document.getElementById('fileArchivo').addEventListener('change', archivo3, false);
+document.getElementById('fileArchivo').addEventListener('change', archivo3, false);*/
