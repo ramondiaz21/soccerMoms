@@ -246,16 +246,18 @@
         public static function agregarArchivoDetalles($info)
         {
             session_start();
-            
+            $id              = $info['id'];
             $id_jugadora     = $info['id_jugadora'];
-            $archivo     = $info['archivo'];
+            $archivo         = $info['archivo'];
 
-            $consulta = "INSERT INTO archivo_detalles (id_jugadora,archivo) 
-                        VALUES('$id_jugadora','$archivo')";
+            $consulta = "CALL SP_ADD_ARCHIVO('$id_jugadora','$archivo')";
 
             // echo $consulta; exit;
             //var_dump($consulta);exit;
-            return DBConnection::query($consulta);
+            $respuesta = DBConnection::query_assoc($consulta);
+            // echo $consulta; exit;
+            
+            return $respuesta;
             
         }
 

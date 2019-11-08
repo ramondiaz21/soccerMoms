@@ -9,6 +9,7 @@ var datosIncorrectos = "Datos incorrectos, vuelve a intentarlo.";
 var imagenJugadora;
 var evidencia;
 var idJugadora = 0;
+var idArchivo;
 
 
 function getEquipos() {
@@ -358,7 +359,7 @@ function agregaEquipo() {
       removeSpinner();
       //$('#txtIdOrden').val(data[0].id);
       idJugadora = data[0].id;
-      console.log(idJugadora);
+      //console.log(idJugadora);
       /*if (data != "") {
         loadData();
         toast1("éxito", "Se agrego correctamente", 5000, "success");
@@ -782,7 +783,7 @@ fileArchivo = $('#fileArchivo').val();
 
 $(document).on('change', '#fileArchivo', function(event) {
   event.preventDefault();
-
+  agregarArchivoDetalles();
   var formData = new FormData($("#myformArchivos")[0]);
   console.log(formData);
 
@@ -816,7 +817,7 @@ $(document).on('change', '#fileArchivo', function(event) {
         archivos = data;
         console.log(archivos);
         var post =
-          '<button id="btnBorrar' + bandera + '" onclick="borrarGaleria(' + bandera + ')" class="btn btn-danger"><i class="fa fa-times"></i></button>' +
+          '<button id="btnBorrar' + idArchivo + '" onclick="borrarGaleria(' + idArchivo + ')" class="btn btn-danger"><i class="fa fa-times"></i></button>' +
           '<a id="btnSubirArchivo">' +
           '<div class="image-wrapper position-relative" id="img_galeria">' +
           '<img id="imagenPerfil" src="resources/clases/archivosJugadoras/' + archivos + '" style="width: 100%; height: 100%;" alt="">' +
@@ -849,6 +850,7 @@ $(document).on('change', '#fileArchivo', function(event) {
           '</form>' +
           '</div>';
         $('#new-wrapper').append(post2);
+
         $('#fileArchivo').val("");
 
         console.log(fileArchivo);
@@ -871,7 +873,7 @@ function agregarArchivoDetalles() {
 
   var parametro = {
     id_jugadora: idJugadora,
-    archivo: $('#txtNombre').val()
+    archivo: archivos
   }
   console.log(parametro);
   $.ajax({
@@ -892,10 +894,11 @@ function agregarArchivoDetalles() {
     },
     success: function(data) {
       ////console.log(data);
-      cleanDataModals();
+      //cleanDataModals();
       //removeModals();
-      //removeSpinner();
-
+      removeSpinner();
+      idArchivo = data[0].id;
+      console.log(idArchivo);
       /*if (data != "") {
         loadData();
         toast1("éxito", "Se agrego correctamente", 5000, "success");

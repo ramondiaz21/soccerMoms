@@ -59,3 +59,21 @@ BEGIN
     WHERE id = _id;
 END $$
 DELIMITER ;
+
+--------------------------------
+
+DROP PROCEDURE IF EXISTS SP_ADD_ARCHIVO;
+
+DELIMITER $$
+CREATE PROCEDURE SP_ADD_ARCHIVO(
+  IN _id_jugadora INT,                               
+  IN _archivo VARCHAR(500)
+)
+BEGIN 
+  
+    INSERT INTO archivo_detalles(id_jugadora,archivo)
+    VALUES(_id_jugadora,_archivo);
+    SET @lastId = LAST_INSERT_ID();
+    SELECT @lastId AS id;
+END $$
+DELIMITER ;
