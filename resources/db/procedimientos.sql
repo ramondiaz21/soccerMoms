@@ -70,10 +70,12 @@ CREATE PROCEDURE SP_ADD_ARCHIVO(
   IN _archivo VARCHAR(500)
 )
 BEGIN 
-  
     INSERT INTO archivo_detalles(id_jugadora,archivo)
     VALUES(_id_jugadora,_archivo);
     SET @lastId = LAST_INSERT_ID();
     SELECT @lastId AS id;
 END $$
 DELIMITER ;
+
+--------------------------------
+

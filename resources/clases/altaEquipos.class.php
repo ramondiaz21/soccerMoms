@@ -261,6 +261,15 @@
             
         }
 
+        public static function getUltimoId($info)
+        {
+            
+            $consulta = "SELECT max(id+1) from archivo_detalles";
+
+            //var_dump($consulta);exit;
+            return DBConnection::query_row($consulta);
+        }
+
 
         
 

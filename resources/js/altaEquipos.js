@@ -783,7 +783,7 @@ fileArchivo = $('#fileArchivo').val();
 
 $(document).on('change', '#fileArchivo', function(event) {
   event.preventDefault();
-  agregarArchivoDetalles();
+  getUltimoId();
   var formData = new FormData($("#myformArchivos")[0]);
   console.log(formData);
 
@@ -817,7 +817,7 @@ $(document).on('change', '#fileArchivo', function(event) {
         archivos = data;
         console.log(archivos);
         var post =
-          '<button id="btnBorrar' + idArchivo + '" onclick="borrarGaleria(' + idArchivo + ')" class="btn btn-danger"><i class="fa fa-times"></i></button>' +
+          '<button id="btnBorrar' + ultimoId + '" onclick="borrarGaleria(' + ultimoId + ')" class="btn btn-danger"><i class="fa fa-times"></i></button>' +
           '<a id="btnSubirArchivo">' +
           '<div class="image-wrapper position-relative" id="img_galeria">' +
           '<img id="imagenPerfil" src="resources/clases/archivosJugadoras/' + archivos + '" style="width: 100%; height: 100%;" alt="">' +
@@ -850,7 +850,7 @@ $(document).on('change', '#fileArchivo', function(event) {
           '</form>' +
           '</div>';
         $('#new-wrapper').append(post2);
-
+        agregarArchivoDetalles();
         $('#fileArchivo').val("");
 
         console.log(fileArchivo);
@@ -935,3 +935,31 @@ function agregarArchivoDetalles() {
 }
 
 document.getElementById('fileArchivo').addEventListener('change', archivo3, false);*/
+var ultimoId;
+
+function getUltimoId() {
+
+  $.ajax({
+    url: 'resources/routes/routeAltaEquipos.php',
+    type: 'POST',
+    async: false,
+    data: {
+      action: "getUltimoId"
+    },
+    dataType: 'JSON',
+    beforeSend: function() {
+      // showSpinner();
+    },
+    error: function(error) {
+      ////console.log(error);
+      toast1("Error!", error, 5000, "error");
+    },
+    success: function(data) {
+      ////console.log(data);
+      removeSpinner();
+      ultimoId = data[0][0];
+      console.log(ultimoId);
+
+    }
+  });
+}
