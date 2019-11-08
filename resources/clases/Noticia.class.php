@@ -4,7 +4,7 @@
     require_once '../utilities/DBConnection.class.php';
     require_once '../utilities/Main.class.php';
     require_once '../utilities/Session.class.php';
-
+    date_default_timezone_set ( "America/Mexico_City" );
     /**
      * summary
      */
@@ -21,7 +21,7 @@
 
         }
 
-        public static function getCategorias($info){
+        public static function getCategorias(){
 
             $consult = "SELECT * FROM vwGetCategorias;";
 
@@ -30,7 +30,7 @@
             return $resultado;
         }
 
-        public static function read($info){
+        public static function read(){
 
             $consult = "SELECT id, cabecera, categoria, texto, url, etiquetas, fecha FROM vwGetContenido;";
 
@@ -40,16 +40,18 @@
                $resultado[$key][3]=substr(htmlspecialchars_decode(addslashes(strip_tags ($item[3]))),0,97).'...';
             }
 
+            return $resultado;
+
         }
 
         public static function search_info($info) {
 
-            date_default_timezone_set ( "America/Mexico_City" );
-            $fechas = $info->fechas;
-            $date1 = $fechas->Date1;
-            $date2 = $fechas->Date2;
-            $cat = $info->categoria;
-            $txt = $info->search;
+            
+            $fechas = $info['fechas'];
+            $date1  = $fechas['Date1'];
+            $date2  = $fechas['Date2'];
+            $cat    = $info['categoria'];
+            $txt    = $info['search'];
 
             $consult = "SELECT id, cabecera, categoria, texto, url, etiquetas, fecha FROM vwGetContenido WHERE (cabecera LIKE '%".$txt."%' 
                     OR etiquetas LIKE '%".$txt."%' 
@@ -66,16 +68,19 @@
                 
             }
             
-            
-            //Main::log($consult);
+            Main::log($consult);
             $resultado = DBConnection::query_row($consult);
 
             foreach($resultado as $key=>$item){
                $resultado[$key][3]=substr(htmlspecialchars_decode(addslashes(strip_tags ($item[3]))),0,97).'...';
             }
+
+            return $resultado;
         }
 
         public static function readEdit($info) {
+
+            $id     = $info['id'];
 
             $consult = "SELECT * FROM vwGetDataEdit WHERE id = '$id'";
             $noticia = DBConnection::query_assoc($consult);
@@ -85,12 +90,74 @@
 
             $resultado = array("noticia" => $noticia, "categorias" => $categorias);
 
+            return $resultado;
+
         }
 
         public static function add($info) {
 
-            $$texto =$info->texto;
+            $texto      = $info['texto'];
+            $categoria  = $info['categoria'];
+            $header     = $info['header'];
+            $etiquetas  = $info['etiquetas'];
+            $foto       = $info['foto'];
+            $id         = $info['id'];
+
+            $server = NOTI_PATH."art/"; // directorio para guardar las imagenes que estan dentro de la noticia
+            $imgsf = self::extraerSRC($texto); // buscamos las imagenes dentro del texto
+            $imgs = $imgsf;
+            $tam = count($imgsf);
+
+
+            for ($i=0; $i < $tam; $i++) { 
+                $filename = "img_noti_".date("Ymd").rand(0,9999); // asignamos nombre aleatorio a la imagen
+                $img = $imgs[1][$i];
+
+                copy($img,"noticias/art/$filename.jpg"); // la insertamos en el servidor
+ 
+                sleep(1);
+
+                $texto = str_replace($img,$server.$filename.".jpg", $texto);// cambiamos el nombre
+            }
+
+            $newtext = str_replace("'","\"", $texto);
+            $datos = DBConnection::query_assoc("CALL SP_checkCat('$categoria')"); //comprobamos que la categorio existe 
+
+            if (empty($datos)) {
+
+                $consult = "CALL SP_insertCategoria('$categoria')";// si no existe la insertamos
+                $datos = DBConnection::query_assoc($consult); 
+                
+                $cat = $datos[0]["id"];
+                
+
+            }else{
+               
+                $cat = $datos[0]["id"];// si existe obtenemos su id
+
+            }
+            
+            $consult = "CALL SP_insertNoticia('$header','$newtext','$cat','$etiquetas','$foto','$id');";
+
+            $resultado = DBConnection::query($consult);
+
+            return $resultado;
+        }
+
+        public static function edit($info){
+
+            $id             = $info['id'];
+            $cat            = $info['cat'];
+            $header         = $info['header'];
+            $texto          = $info['texto'];
+            $imagen_nueva   = $info['imagen_nueva'];
+            $etiquetas      = $info['etiquetas'];
+            $imagen_actual  = $info['imagen_actual'];
+            $user           = $info['idUser'];
+
             $server = NOTI_PATH."art/";
+
+
             $imgsf = self::extraerSRC($texto);
             $imgs = $imgsf;
             $tam = count($imgsf);
@@ -99,43 +166,67 @@
             for ($i=0; $i < $tam; $i++) { 
                 $filename = "img_noti_".date("Ymd").rand(0,9999);
                 $img = $imgs[1][$i];
-                //Main::log($img);
-                //copy($img, "fotos/$id/galeria_chica/$i.jpg");
+
                 copy($img,"noticias/art/$filename.jpg");
-                //Main::log("noticias/art/$filename.jpg");
+
                 sleep(1);
-                //rename($img,"");
-                //unlink($img);
-                sleep(1);
+
                 $texto = str_replace($img,$server.$filename.".jpg", $texto);
             }
-            //Main::log($texto);
-            /*$newtext = str_replace("../api",$server, $texto);
-            $newtext = str_replace("'","\"", $newtext);/*/
-            //Main::log($newtext);
+            
             $newtext = str_replace("'","\"", $texto);
-            $datos = DBConnection::query_assoc("CALL SP_checkCat('$info->categoria')"); //se llama al procedimiento almacenado para validar los datos
-            //var_dump($datos);
+            
+            $datos = DBConnection::query_assoc("CALL SP_checkCat('$cat')"); //se llama al procedimiento almacenado para validar los datos
+            
             if (empty($datos)) {
 
-                $consult = "CALL SP_insertCategoria('$info->categoria')";
+                $consult = "CALL SP_insertCategoria('$cat')";
                 $datos = DBConnection::query_assoc($consult); 
-                //Main::log($consult);
+                
                 $cat = $datos[0]["id"];
-                //Main::log($id);
+                
 
             }else{
-                //Main::log("else");
+                
                 $cat = $datos[0]["id"];
 
             }
-            
-            $consult = "CALL SP_insertNoticia('{$info->header}','$newtext','$cat',
-            '{$info->etiquetas}','{$info->foto}','{$info->id}');";
-            //Main::log($consult);
-            //$response = array("estado" => "success","resultado" => $resultado);
-            $resultado = DBConnection::query($consult);
-            $resultado = $imgs;
+
+            if( $imagen_nueva == $imagen_actual){
+
+                $consult = "CALL SP_editNoticia('$header','$newtext','$etiquetas','$cat','$user','$id');";
+                
+                $resultado = DBConnection::query($consult);
+
+            }else{
+
+                $img = pathinfo($imagen_actual);
+                $path = str_replace("routes","",getcwd());
+                $ruta = $path.$img['dirname']."/".$img['basename'];
+                $thumb = str_replace(".".$img['extension'],"_thumb.".$img['extension'],$ruta);
+    
+                if (file_exists($ruta))
+                   unlink($ruta);
+    
+                if (file_exists($thumb))
+                    unlink($thumb);
+
+                $consult = "CALL SP_editNoticia2('$header','$newtext','$etiquetas','$cat',
+                '$imagen_nueva','$user','$id');";
+                //Main::log($consult);
+                $resultado = DBConnection::query($consult);
+
+
+            }
+
+            return $resultado;
+
+        }
+
+        public static function extraerSRC($cadena) {
+            preg_match_all('@src="([^"]+)"@', $cadena, $array);
+            //$src = array_pop($array);
+            return $array;
         }
 
         public static function subirimagen($info) {
@@ -167,7 +258,7 @@
                 mkdir('noticias/art', 0755);
             
             file_put_contents('noticias/art/'.$filename.".".$ext, $info);
-            //$consult = "CALL SP_DeleteNoticia('{$info->eliminar}');";
+            //$consult = "CALL SP_DeleteNoticia('{$info['eliminar']}');";
             
             $resp = "$filename.$ext";
             //Main::log($resp);
@@ -199,15 +290,11 @@
         }
 
 
-        public static function cabecera($info) {
-
+        public static function cabecera($info) { // subir imagen de cabecera de la noticia
 
             $url = $info['tmp_name'];
             $file = $info['name'];
             $type = $info["type"];
-            //Main::log($url);
-            //Main::log($file);
-            //Main::log($type);
 
             $date = getdate();
             
@@ -217,12 +304,13 @@
             $hour=$date["hours"];
             $minutes=$date["minutes"];
 
-            $namefile=$year.$month.$day.$hour.$minutes.rand(0,99999);
+            $namefile=$year.$month.$day.$hour.$minutes.rand(0,99999); // asignamos un nombre aleatorio
             //Main::log($namefile);
-            $dir=getcwd();
+            getcwd();
+            chdir('../');
+            $dir=getcwd(); // nos ubicamos en el directorio adecuado
 
-
-            if($type=="image/jpeg"){
+            if($type=="image/jpeg"){ // validamos el formato de la imagen
 
                 $namefilefinal=$namefile."."."jpg";
 
@@ -240,33 +328,20 @@
 
                     }else{
 
-                        $resultado = "El archivo no es imagen";
+                        $resultado = null;
 
-                        $response = array("estado" => "unknow_error","resultado" => $resultado);
-                        return $response;
+                        return $resultado;
                     }
                 }
             }
 
-            if(!is_dir('noticias/'))
-                mkdir('noticias/', 0755);
-
-            //$namefilefinalf = 'noticias/'.$namefilefinal;
-            //Main::log($namefilefinal);
             $ruta = $dir."/noticias/".$namefilefinal;
             //Main::log($ruta);
 
-            copy($url,$ruta);
-            if (empty($namefilefinal)) {
-                $namefilefinal = 0;
-            }else{
+            copy($url,$ruta); // copiamos la imagen a la carpeta
 
-            }
-            
-            $response = array("estado" => "success","resultado" => $namefilefinal); 
-            
             sleep(3);//retrasamos la petición 3 segundos
-            return $response;
+            return  $namefilefinal;
 
         }
 

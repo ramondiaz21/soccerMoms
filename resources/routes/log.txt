@@ -1,0 +1,10 @@
+
+			---- SELECT id, cabecera, categoria, texto, url, etiquetas, fecha FROM vwGetContenido WHERE (cabecera LIKE '%%' 
+                    OR etiquetas LIKE '%%' 
+                    OR idCat LIKE '%%')AND idCat =4  ----- 
+			---- SELECT id, cabecera, categoria, texto, url, etiquetas, fecha FROM vwGetContenido WHERE (cabecera LIKE '%%' 
+                    OR etiquetas LIKE '%%' 
+                    OR idCat LIKE '%%')AND idCat =4  ----- 
+			---- SELECT id, cabecera, categoria, texto, url, etiquetas, fecha FROM vwGetContenido WHERE (cabecera LIKE '%%' 
+                    OR etiquetas LIKE '%%' 
+                    OR idCat LIKE '%%')AND idCat =5  ----- 

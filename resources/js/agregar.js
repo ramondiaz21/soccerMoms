@@ -24,7 +24,7 @@ $(document).ready(function(){
 });
 //funciones
 
-function loadCategoria(){//funciona
+function loadCategoria(){//obtiene las categorias existentes
   let info = {};
 
   $.ajax({
@@ -38,7 +38,7 @@ function loadCategoria(){//funciona
     },
     error: function(error){
       console.log(error);
-      my_toast("Error!", ajaxError, 8000, "error");
+      toast1("Error!", ajaxError, 8000, "error");
       removeSpinner();
     },
     success: function(data){
@@ -69,25 +69,24 @@ function loadCategoria(){//funciona
 
       } else {
 
-        my_toast("Error!", error, 5000, "error");
+        toast1("Error!", error, 5000, "error");
   
       }
     }
   }); //fin ajax
 }
 
-$(document).on("keyup", "#header", function(){
+$(document).on("keyup", "#header", function(){ //funcion que detona un contandor
    countChars(this);
-
 });
 
-function countChars(obj){
+function countChars(obj){ // contador de letras para el titulo
     var maxLength = 100;
     var strLength = obj.value.length;
     numero    = $("#header").val();
     if(strLength > maxLength){
 
-        my_toast("Atención","Longitud máxima excedida de caracteres",3000,"warning");
+        toast1("Atención","Longitud máxima excedida de caracteres",3000,"warning");
         texto = numero.substring(0,numero.length-1);
         $("#header").val(texto);
         
@@ -96,7 +95,7 @@ function countChars(obj){
     }
 }
 
-function readURL(input) {
+function readURL(input) { /// cargar la imagen de cabecera 
 
     if (input.files && input.files[0]) {
         if (input.files[0].type.match('image.*')) {
@@ -109,12 +108,12 @@ function readURL(input) {
                 image.onload = function(evt){
                     if (this.width<=max_width && this.width>=min_width ){
                         if (!(this.height<=max_height && this.width>=min_height )){
-                            my_toast("El tamaño de la imagen no es adecuado", "El alto de la imagen debe ser mayor a "+min_height+"px y menor a "+max_height+"px", 8000, "error");
+                            toast1("El tamaño de la imagen no es adecuado", "El alto de la imagen debe ser mayor a "+min_height+"px y menor a "+max_height+"px", 8000, "error");
                             $('#imagen').val('');
                             return false;
                         }
                     }else{
-                        my_toast("El tamaño de la imagen no es adecuado","El ancho de la imagen debe ser mayor a "+min_width+"px y menor a "+max_width+"px",8000,"error");
+                        toast1("El tamaño de la imagen no es adecuado","El ancho de la imagen debe ser mayor a "+min_width+"px y menor a "+max_width+"px",8000,"error");
                         $('#imagen').val('');
                         return false;
                     }
@@ -128,39 +127,21 @@ function readURL(input) {
             return true;
         }else{
             document.getElementById('imageadd').style.display = 'none';
-            my_toast("Error al cargar el archivo","El archivo no es una imagen",8000,"error");
+            toast1("Error al cargar el archivo","El archivo no es una imagen",8000,"error");
             $('#imagen').val('');
             return false;
         }
     }
 }
 
-function showMessage(message){
-    $(".messages").html("").show();
-    $(".messages").html(message);
-}
 
-//Agregar.php
 $(document).on("change", "#imagen", function(){
     readURL(this);
 
 });
 
-function resizeBase64Img(base64, width, height) {
-    var canvas = document.createElement("canvas");
-    canvas.width = width;
-    canvas.height = height;
-    var context = canvas.getContext("2d");
-    var deferred = $.Deferred();
-    $("<img/>").attr("src", "data:image/gif;base64," + base64).load(function() {
-        context.scale(width/this.width,  height/this.height);
-        context.drawImage(this, 0, 0); 
-        deferred.resolve($("<img/>").attr("src", canvas.toDataURL()));               
-    });
-    return deferred.promise();    
-}
 
-$(document).on("click", "#SubirContenido", function(){
+$(document).on("click", "#SubirContenido", function(){ // subir la noticia
 
 
     var altura = document.getElementById("imageadd").height;
@@ -171,7 +152,7 @@ $(document).on("click", "#SubirContenido", function(){
     var flag=true;
 
     if(formData==""){
-        my_toast("Error","Favor de subir una imagen",8000,"error");
+        toast1("Error","Favor de subir una imagen",8000,"error");
         flag=false;
 
     }
@@ -180,23 +161,21 @@ $(document).on("click", "#SubirContenido", function(){
 
     if(header==""){
 
-        my_toast("Cabecera","Ingrese Cabecera",8000,"error");
+        toast1("Cabecera","Ingrese Cabecera",8000,"error");
         flag=false;
     }
 
     var Texto = $("#textadd").val();;
     if(Texto==""){
-        my_toast("Cuerpo","Ingrese Cuerpo De La Noticia",8000,"error");
+        toast1("Cuerpo","Ingrese Cuerpo De La Noticia",8000,"error");
         flag=false;
     }else{
         
         var texto = $("#textadd").val();;
-        //console.log(texto.length);
         if(texto.length > 1000000){
 
-            my_toast("Atención","Longitud máxima de caracteres excedida",3000,"warning");
-            //texto = numero.substring(0,numero.length-1);
-            //$("#header").val(texto);
+            toast1("Atención","Longitud máxima de caracteres excedida",3000,"warning");
+
             flag=false;
         }else{
         
@@ -205,13 +184,13 @@ $(document).on("click", "#SubirContenido", function(){
 
     var categoria= $("#select_categoria").val();
     if(categoria=="0"){
-        my_toast("Categoria","Categoria Invalida",8000,"error");
+        toast1("Categoria","Categoria Invalida",8000,"error");
         flag=false;
     }
 
     var Etiquetas=$("#tags").val();
     if(Etiquetas==""){
-        my_toast("Etiquetas","Etiquetas Necesarias",8000,"error");
+        toast1("Etiquetas","Etiquetas Necesarias",8000,"error");
         flag= false;
     }
 
@@ -223,7 +202,7 @@ $(document).on("click", "#SubirContenido", function(){
 
         var message = "";
 
-        //hacemos la petición ajax
+        //hacemos la petición ajax, subimos primero la imagen de cabecera
         $.ajax({
             url: 'resources/routes/routeNoticias.php',
             type: 'POST',
@@ -238,15 +217,10 @@ $(document).on("click", "#SubirContenido", function(){
             //mientras enviamos el archivo
             beforeSend: function(){
                 showSpinner();
-                
-                message = $("<span class='before'>Subiendo la imagen, por favor espere...</span>");
-                showMessage(message)
+
             },
             //una vez finalizado correctamente
             success: function(data){
-
-                message = $("<span class='success'>La imagen ha subido correctamente.</span>");
-                showMessage(message)
 
                 var header=$("#header").val();
 
@@ -265,7 +239,7 @@ $(document).on("click", "#SubirContenido", function(){
                 info.id             = $("#inputID").val();
                 info.foto           = data;
                 //console.log(info);
-                $.ajax({
+                $.ajax({ // enviamos toda la noticia
 
                     url:"resources/routes/routeNoticias.php",
                     type:"POST",
@@ -274,20 +248,20 @@ $(document).on("click", "#SubirContenido", function(){
                        
                     },
                     error: function(error){
-                        my_toast("error",error,8000,"error");
+                        toast1("error",error,8000,"error");
                         
                     },
                     success: function(data){
                         removeSpinner();
                         if(data!=false){
                             //console.log(data);
-                            my_toast("¡Exito!", "adicion correcta", 8000, "success");
+                            toast1("¡Exito!", "adicion correcta", 8000, "success");
 
                             resetForm("formtext");
                             resetForm("formimage");
                             resetForm("get-data-form");
                             document.getElementById('imageadd').style.display = 'none';
-                            window.location.href = "noticias.php";
+                            window.location.href = "adminNoticias.php";
                             //$('#tags').tagsinput('removeAll');
 
                         }
@@ -302,7 +276,9 @@ $(document).on("click", "#SubirContenido", function(){
 
 
     }else{
-        my_toast("error", "Tamaño o imagen no valida", 8000, "error");
+        console.log(ancho);
+        console.log(altura);
+        toast1("error", "Tamaño o imagen no valida", 8000, "error");
         return;
     }
 

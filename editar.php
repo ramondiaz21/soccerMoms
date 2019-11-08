@@ -1,12 +1,16 @@
 <?php 
   session_start();
+
+  include 'includes/editar.php';
  ?>
 
 <!DOCTYPE html>
 <html>
 <head>
   <?php include 'includes/linksTemplate.html'; ?>
-
+  <link type="text/css" rel="stylesheet" href="assets/jodit/build/jodit.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/bootstrap-tagsinput-latest/src/bootstrap-tagsinput.css">
+  <link rel="stylesheet" href="assets/EasyAutocomplete/easy-autocomplete.min.css">
   <title>Usuarios | COSITEC</title>
 </head>
 
@@ -20,7 +24,7 @@
 
       echo "<div class='content-wrapper'>";
 
-      include('views/adminNoticias.php'); 
+      include('views/editar.php'); 
         
 
       echo "</div>";
@@ -39,9 +43,11 @@
     ?>
 
 <?php include 'includes/scriptsTemplate.html'; ?>
-<script src="resources/js/perfil.js"></script>
 
-  
+<script type="text/javascript" src="assets/bootstrap-tagsinput-latest/src/bootstrap-tagsinput.js"></script>
+<script type="text/javascript" src="assets/jodit/build/jodit.min.js"></script> 
+<script src="assets/EasyAutocomplete/jquery.easy-autocomplete.min.js"></script>
+  <script src="resources/js/editar.js"></script>
   
 </body>
 

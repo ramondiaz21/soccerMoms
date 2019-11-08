@@ -40,7 +40,7 @@ function getData(id){
         },
 
         error: function(error){
-            my_toast("error",error,8000,"error");
+            toast1("error",error,8000,"error");
             removeSpinner();
         },
 
@@ -64,14 +64,6 @@ function getData(id){
                 var options = {
                     data:arr ,
 
-                    /*getValue: "id",
-                    template: {
-                        type: "custom",
-                        method: function(value, item) {
-                            return   item.categoria + " | " + value;
-                        }
-                    }*/
-                    //listLocation: "nombre",
                     getValue: "categoria",
                     list: {
                         maxNumberOfElements: 8,
@@ -89,12 +81,13 @@ function getData(id){
             
                 $("#idedit").val(noticia[0]["id"]);
                 $("#headeredit").val(noticia[0]["cabecera"]);
+                $("#marksedit").val();
+                $('#marksedit').tagsinput('add',noticia[0]["etiquetas"]);
                 $("#profile-image").attr("src",PATH+noticia[0]["url"]);
                 $("#texteditar").val(noticia[0]["texto"]);
-                $("#marksedit").val();
+                
                 $("#Editcat").val(noticia[0]["categoria"]);
                 let axurl = noticia[0]["url"];
-                $('#marksedit').tagsinput('add',noticia[0]["etiquetas"]);
                
                 $("#imagen_actual").val(axurl);
                 removeSpinner();
@@ -105,24 +98,6 @@ function getData(id){
     });
 }
 
-
-
-//funciones
-/*
-function readURLedit(input) {
-
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-
-            $('#profile-image').attr('src', e.target.result);
-
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    }
-}*/
 
 function readURLedit(input) {
 
@@ -137,12 +112,12 @@ function readURLedit(input) {
                 image.onload = function(evt){
                     if (this.width<=max_width && this.width>=min_width ){
                         if (!(this.height<=max_height && this.width>=min_height )){
-                            my_toast("El tamaño de la imagen no es adecuado", "El alto de la imagen debe ser mayor a "+min_height+"px y menor a "+max_height+"px", 8000, "error");
+                            toast1("El tamaño de la imagen no es adecuado", "El alto de la imagen debe ser mayor a "+min_height+"px y menor a "+max_height+"px", 8000, "error");
                             $('#imagen').val('');
                             return false;
                         }
                     }else{
-                        my_toast("El tamaño de la imagen no es adecuado","El ancho de la imagen debe ser mayor a "+min_width+"px y menor a "+max_width+"px",8000,"error");
+                        toast1("El tamaño de la imagen no es adecuado","El ancho de la imagen debe ser mayor a "+min_width+"px y menor a "+max_width+"px",8000,"error");
                         $('#imagen').val('');
                         return false;
                     }
@@ -154,22 +129,10 @@ function readURLedit(input) {
             };
             return true;
         }else{
-            my_toast("Error al cargar el archivo","El archivo no es una imagen",8000,"error");
+            toast1("Error al cargar el archivo","El archivo no es una imagen",8000,"error");
             $('#imagen').val('');
             return false;
         }
-    }
-}
-
-function isImage(extension){
-    switch(extension.toLowerCase())
-    {
-        case 'jpg': case 'gif': case 'png': case 'jpeg':
-            return true;
-        break;
-        default:
-            return false;
-        break;
     }
 }
 
@@ -254,24 +217,24 @@ $(document).on("click", "#Guardar_cambios", function(e){
     var formData = new FormData($(".formedit")[0]);
 
     if(formData==""){
-        my_toast("Imagen Vacia", "Favor de ingresar una imagen",8000,"error")
+        toast1("Imagen Vacia", "Favor de ingresar una imagen",8000,"error")
         flag=false;
     }
 
     var Etiquetas= $("#marksedit").val();
     if(Etiquetas==""){
-        my_toast("Sin etiquetas","Ingrese etiquetas correspondientes",8000,"error")
+        toast1("Sin etiquetas","Ingrese etiquetas correspondientes",8000,"error")
         flag=false;
     }
     var header=$("#headeredit").val();
     if(header==""){
-        my_toast("Noticia sin cabecera","Ingrese la cabecera de la noticia",8000,"error")
+        toast1("Noticia sin cabecera","Ingrese la cabecera de la noticia",8000,"error")
         flag=false;
     }
 
     var texto= $("#texteditar").val();
     if(texto==""){
-        my_toast("Noticia sin cuerpo","Ingrese el cuerpo de la noticia",8000,"error")
+        toast1("Noticia sin cuerpo","Ingrese el cuerpo de la noticia",8000,"error")
         flag=false;
     }else{
 
@@ -280,7 +243,7 @@ $(document).on("click", "#Guardar_cambios", function(e){
         //console.log(texto.length);
         if(texto.length > 1000000){
 
-            my_toast("Atención","Longitud máxima excedida de caracteres",3000,"warning");
+            toast1("Atención","Longitud máxima excedida de caracteres",3000,"warning");
             //texto = numero.substring(0,numero.length-1);
             //$("#header").val(texto);
             flag=false;
@@ -292,7 +255,7 @@ $(document).on("click", "#Guardar_cambios", function(e){
     var cat=$("#Editcat").val();
     if (cat==""){
 
-        my_toast("ERROR", "Ingrese una categoria valida",8000,"error");
+        toast1("ERROR", "Ingrese una categoria valida",8000,"error");
         flag=false;
     }
 
@@ -376,17 +339,17 @@ $(document).on("click", "#Guardar_cambios", function(e){
                         showSpinner();
                     },
                     error: function(error){
-                        my_toast("error",error,8000,"error");
+                        toast1("error",error,8000,"error");
                         removeSpinner();
                     },
                     success: function(data){
                         removeSpinner();
                         if(data!=false){
 
-                            my_toast("¡Exito!", "Edición correcta", 5000, "success");
-                            window.location.href = "noticias.php";
+                            toast1("¡Exito!", "Edición correcta", 5000, "success");
+                            window.location.href = "adminNoticias.php";
                         }else{
-                            my_toast("¡Atención!", "Error al editar", 5000, "warning");
+                            toast1("¡Atención!", "Error al editar", 5000, "warning");
                         }
 
                     }
@@ -401,7 +364,7 @@ $(document).on("click", "#Guardar_cambios", function(e){
 
     }else{
 
-        my_toast("error", "Favor de cambiar el tamaño de la imagen", 8000, "error");
+        toast1("error", "Favor de cambiar el tamaño de la imagen", 8000, "error");
         return;
     }
 

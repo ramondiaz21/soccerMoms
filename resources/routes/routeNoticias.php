@@ -18,7 +18,7 @@
 
         case 'getCategorias':
 
-            echo json_encode(Noticia::getCategorias($info));
+            echo json_encode(Noticia::getCategorias());
 
             break;
 
@@ -30,7 +30,7 @@
 
         case 'read':
 
-            echo json_encode(Noticia::read($info));
+            echo json_encode(Noticia::read());
 
             break;
 

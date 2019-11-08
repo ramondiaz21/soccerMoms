@@ -6,7 +6,7 @@
     define("CONTRASENA", "quesadilla"); // Constraseña
 
     define("LOCAL_PATH","http://".$_SERVER['SERVER_NAME'].""."/soccermoms");
-    define("NOTI_PATH","http://".$_SERVER['SERVER_NAME'].""."/soccermoms/resources/noticias");
+    define("NOTI_PATH","http://".$_SERVER['SERVER_NAME'].""."/soccermoms/resources/noticias/");
  
     
 

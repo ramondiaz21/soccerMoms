@@ -14,7 +14,7 @@ $(document).ready(function() {
   $('#Inputdate2').val(date);
 
   getCategorias();
-  //CargaContenido();
+  CargaContenido();
 
 })
 
@@ -285,7 +285,7 @@ function search(){//busqueda de noticias con parametro
 
             }else{
 
-                toast1("Error", "No hay noticias con estos parametros", 5000, "error");
+                toast1("Atención", "No hay noticias con estos parametros", 5000, "warning");
                 $("tbody").empty();
             }
         }
