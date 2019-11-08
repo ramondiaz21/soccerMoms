@@ -72,18 +72,37 @@
         public static function agregar($info)
         {
             session_start();
-            
+            $id         = $info['id'];
             $equipo     = $info['equipo'];
             $nombre     = $info['nombre'];
             $telefono   = $info['telefono'];
-            $imagen   = $info['imagen'];
+            $imagen     = $info['imagen'];
 
-            $consulta = "INSERT INTO jugadoras (equipo,nombre,telefono,status) 
-                        VALUES('$equipo','$nombre','$telefono',1)";
+            $consulta = "CALL SP_ADD_JUGADORA($equipo,'$nombre','$telefono','$imagen')";
 
             // echo $consulta; exit;
             //var_dump($consulta);exit;
-            return DBConnection::query($consulta);
+            $respuesta = DBConnection::query_assoc($consulta);
+            // echo $consulta; exit;
+            
+            return $respuesta;
+            
+        }
+
+        public static function updateAgregaEquipo($info)
+        {
+            $id        = $info['id'];
+            $nombre    = $info['nombre'];
+            $telefono  = $info['telefono'];
+            $imagen    = $info['imagen'];
+                      
+            
+            //$fecha_registro = $info['fecha_registro'];
+
+            $consulta = "CALL SP_UPDATE_IMAGEN_JUGADORA('$id','$nombre','$telefono','$imagen')";
+            var_dump($consulta);exit;
+             return DBConnection::query_row($consulta);
+
             
         }
 

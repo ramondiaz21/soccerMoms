@@ -8,6 +8,8 @@ var datosIncorrectos = "Datos incorrectos, vuelve a intentarlo.";
 
 var imagenJugadora;
 var evidencia;
+var idJugadora = 0;
+
 
 function getEquipos() {
 
@@ -330,7 +332,7 @@ function agregaEquipo() {
     equipo: $('#select_equipo').val(),
     nombre: $('#txtNombre').val(),
     telefono: $('#txtTelefono').val(),
-    //imagen: evidencia
+    imagen: evidencia
   }
   console.log(parametro);
   $.ajax({
@@ -339,6 +341,50 @@ function agregaEquipo() {
     data: {
       info: parametro,
       action: "agregar"
+    },
+    dataType: 'JSON',
+    beforeSend: function() {
+      showSpinner();
+    },
+    error: function(error) {
+      ////console.log(error);
+      toast1("Error!", error, 5000, "error");
+      removeSpinner();
+    },
+    success: function(data) {
+      console.log(data);
+      //cleanDataModals();
+      //removeModals();
+      removeSpinner();
+      //$('#txtIdOrden').val(data[0].id);
+      idJugadora = data[0].id;
+      console.log(idJugadora);
+      /*if (data != "") {
+        loadData();
+        toast1("éxito", "Se agrego correctamente", 5000, "success");
+      } else {
+        $('tbody').empty();
+        toast1("Atencion!", "No se pudo agregar", 5000, "error");
+      }*/
+    }
+  });
+}
+
+function updateAgregaEquipo() {
+
+  var parametro = {
+    id: idJugadora,
+    nombre: $('#txtNombre').val(),
+    telefono: $('#txtTelefono').val(),
+    imagen: evidencia
+  }
+  console.log(parametro);
+  $.ajax({
+    url: 'resources/routes/routeAltaEquipos.php',
+    type: 'POST',
+    data: {
+      info: parametro,
+      action: "updateAgregaEquipo"
     },
     dataType: 'JSON',
     beforeSend: function() {
@@ -366,9 +412,50 @@ function agregaEquipo() {
   });
 }
 
+$(document).on('click', '#btnAgregarNew', function(e) {
 
+  e.preventDefault();
+  var flag = true;
+  var cont = 0;
 
-$(document).on('click', '#upload2p', function(e) {
+  $('#modAgregarJugadora input.necesary').each(function(index, currentElement) {
+    var currentElement = $(this);
+    var value = currentElement.val();
+
+    ////console.log(value);
+
+    if (value == "" || value == "null") {
+      flag = false;
+      cont++;
+      $(this).addClass('invalido');
+    } else {
+      flag = true;
+    }
+  });
+
+  $('#modAgregarJugadora input.necesary').keyup(function(currentElement) {
+    var currentElement = $(this);
+    var value = currentElement.val();
+
+    if (value == "" || value == "null") {
+      $(this).addClass('invalido');
+    } else {
+      $(this).removeClass('invalido');
+    }
+  });
+
+  if (flag == false || cont >= 1) {
+    toast1("Error!", "Por favor llena los campos de nombre y telefono", 5000, "error");
+  } else {
+    if (idJugadora == 0) {
+      agregaEquipo();
+    } else {
+      updateAgregaEquipo();
+    }
+  }
+});
+
+/*$(document).on('click', '#upload2p', function(e) {
 
   e.preventDefault();
   var flag = true;
@@ -405,7 +492,7 @@ $(document).on('click', '#upload2p', function(e) {
   } else {
     agregaEquipo();
   }
-});
+});*/
 
 $(document).on('click', '#btnEditar', function(e) {
 
@@ -617,6 +704,8 @@ $(document).on('change', '#filePrueba', function(event) {
         $('#imagenPerfil').replaceWith(post);
         $(".imagenes-uploads").css('display', 'block');
         $(".modal-footer").css('display', 'block');
+        //console.log(idJugadora);
+
         //$("#imagenPerfil").css('display', 'none');
         $("#filePrueba").val("");
         toast1("Éxito!", "La imagen de perfil se cargo correctamente", 3000, "success");

@@ -96,6 +96,7 @@
           <div class="modal-body" id="div_modal_body">
             <div class="row">
               <div class="col-lg-8 col-md-8 col-12">
+                <input type="text" id="txtIdOrden" style="display: none" name="" value="" placeholder="">
                 <div class="col-lg-12" style="margin-top: 15px">
                   <input type="text" class="form-control necesary" id="txtNombre" name="" value="" placeholder="Nombre De Jugadora*">
                 </div>

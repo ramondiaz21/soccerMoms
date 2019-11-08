@@ -25,6 +25,9 @@ switch ($action) {
     case 'agregar':
         echo json_encode($Equipos->agregar($info));
         break;
+    case 'updateAgregaEquipo':
+        echo json_encode($Equipos->updateAgregaEquipo($info));
+        break;
     case 'getJugadora':
         echo json_encode($Equipos->getJugadora($info));
         break;
