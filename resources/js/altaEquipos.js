@@ -412,7 +412,7 @@ function updateAgregaEquipo() {
   });
 }
 
-$(document).on('click', '#btnAgregarNew', function(e) {
+/*$(document).on('click', '#btnAgregarNew', function(e) {
 
   e.preventDefault();
   var flag = true;
@@ -447,13 +447,9 @@ $(document).on('click', '#btnAgregarNew', function(e) {
   if (flag == false || cont >= 1) {
     toast1("Error!", "Por favor llena los campos de nombre y telefono", 5000, "error");
   } else {
-    if (idJugadora == 0) {
-      agregaEquipo();
-    } else {
-      updateAgregaEquipo();
-    }
+    
   }
-});
+});*/
 
 /*$(document).on('click', '#upload2p', function(e) {
 
@@ -704,8 +700,12 @@ $(document).on('change', '#filePrueba', function(event) {
         $('#imagenPerfil').replaceWith(post);
         $(".imagenes-uploads").css('display', 'block');
         $(".modal-footer").css('display', 'block');
-        //console.log(idJugadora);
-
+        console.log(idJugadora);
+        if (idJugadora == 0) {
+          agregaEquipo();
+        } else {
+          updateAgregaEquipo();
+        }
         //$("#imagenPerfil").css('display', 'none');
         $("#filePrueba").val("");
         toast1("Éxito!", "La imagen de perfil se cargo correctamente", 3000, "success");
@@ -870,7 +870,7 @@ $(document).on('click', '#btnSubirArchivo', function(e) {
 function agregarArchivoDetalles() {
 
   var parametro = {
-    id_jugadora: $('#select_equipo').val(),
+    id_jugadora: idJugadora,
     archivo: $('#txtNombre').val()
   }
   console.log(parametro);
@@ -893,16 +893,16 @@ function agregarArchivoDetalles() {
     success: function(data) {
       ////console.log(data);
       cleanDataModals();
-      removeModals();
-      removeSpinner();
+      //removeModals();
+      //removeSpinner();
 
-      if (data != "") {
+      /*if (data != "") {
         loadData();
         toast1("éxito", "Se agrego correctamente", 5000, "success");
       } else {
         $('tbody').empty();
         toast1("Atencion!", "No se pudo agregar", 5000, "error");
-      }
+      }*/
     }
   });
 }

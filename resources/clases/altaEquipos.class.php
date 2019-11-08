@@ -91,18 +91,21 @@
 
         public static function updateAgregaEquipo($info)
         {
-            $id        = $info['id'];
-            $nombre    = $info['nombre'];
-            $telefono  = $info['telefono'];
-            $imagen    = $info['imagen'];
-                      
-            
-            //$fecha_registro = $info['fecha_registro'];
+            session_start();
+            $id         = $info['id'];
+            $equipo     = $info['equipo'];
+            $nombre     = $info['nombre'];
+            $telefono   = $info['telefono'];
+            $imagen     = $info['imagen'];
 
             $consulta = "CALL SP_UPDATE_IMAGEN_JUGADORA('$id','$nombre','$telefono','$imagen')";
-            var_dump($consulta);exit;
-             return DBConnection::query_row($consulta);
 
+            // echo $consulta; exit;
+            //var_dump($consulta);exit;
+            $respuesta = DBConnection::query_row($consulta);
+            // echo $consulta; exit;
+            
+            return $respuesta;
             
         }
 
