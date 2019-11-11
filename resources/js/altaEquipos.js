@@ -727,10 +727,13 @@ $(document).on('change', '#fileArchivo', function(event) {
         var post =
           '<button id="btnBorrar' + bandera + '" onclick="borrarGaleria(' + bandera + ')" class="btn btn-danger"><i class="fa fa-times"></i></button>' +
           '<a id="btnSubirArchivo">' +
-          '<div class="image-wrapper position-relative" id="img_galeria">' +
+          '<div class="col-lg-6 col-md-6 col-12 divisions ' + archivos + '" style="margin: 10px 0" id="divGaleria">' +
+          '<button id="btnBorrar' + ultimoId + '" onclick="eliminarArchivo()" class="btn btn-danger ' + ultimoId + '"><i class="fa fa-times"></i></button>' +
+          '<a id="btnSubirArchivo ' + ultimoId + '">' + '<div class="image-wrapper position-relative" id="img_galeria">' +
           '<img id="imagenPerfil" src="resources/clases/archivosJugadoras/' + archivos + '" style="width: 100%; height: 100%;" alt="">' +
           '</div>' +
-          '</a>';
+          '</a>' +
+          '</div>';
         /*'<form id="myformArchivos" enctype="multipart/form-data">' +
         '<input class="form-control-file" id="fileArchivo' + bandera + '" name="' +
         'fileArchivo " type="file" accept="' +
@@ -739,10 +742,10 @@ $(document).on('change', '#fileArchivo', function(event) {
         '</form>';*/
 
         console.log(post);
-        $('#imagenNueva').replaceWith(post);
+        $('#divGaleria').replaceWith(post);
         var post2 =
           '<div class="col-lg-6 col-md-6 col-12 divisions" style="margin: 10px 0" id="divGaleria">' +
-          '<button id="btnBorrar" onclick="borrarGaleria" class="btn btn-danger" style="display:none"><i class="fa fa-times"></i></button>' +
+          '<button id="btnBorrar" onclick="eliminarArchivo" class="btn btn-danger" style="display:none"><i class="fa fa-times"></i></button>' +
           '<a id="btnSubirArchivo">' +
           '<div class="image-wrapper position-relative" id="img_galeria">' +
           '<div class="centerer" id="imagenNueva">' +
@@ -840,3 +843,138 @@ function agregarArchivoDetalles() {
 }
 
 document.getElementById('fileArchivo').addEventListener('change', archivo3, false);*/
+/*document.getElementById('fileArchivo').addEventListener('change', archivo3, false);*/
+var ultimoId;
+
+function getUltimoId() {
+
+  $.ajax({
+    url: 'resources/routes/routeAltaEquipos.php',
+    type: 'POST',
+    async: false,
+    data: {
+      action: "getUltimoId"
+    },
+    dataType: 'JSON',
+    beforeSend: function() {
+      // showSpinner();
+    },
+    error: function(error) {
+      ////console.log(error);
+      toast1("Error!", error, 5000, "error");
+    },
+    success: function(data) {
+      ////console.log(data);
+      removeSpinner();
+      ultimoId = data[0][0];
+      console.log(ultimoId);
+
+    }
+  });
+}
+
+function cancelarJugadora() {
+
+  var parametro = {
+    id: idJugadora
+  }
+  console.log(parametro);
+  bootbox.confirm({
+    message: "¿Estás seguro de querer cancelar esta jugadora?",
+    buttons: {
+      confirm: {
+        label: 'Si',
+        className: 'btn-success'
+      },
+      cancel: {
+        label: 'No',
+        className: 'btn-danger'
+      }
+    },
+    callback: function(result) {
+      if (result == true) {
+        $.ajax({
+          url: 'resources/routes/routeAltaEquipos.php',
+          type: 'POST',
+          data: {
+            info: parametro,
+            action: "cancelarJugadora"
+          },
+          dataType: 'JSON',
+          beforeSend: function() {
+            showSpinner();
+          },
+          error: function(error) {
+            ////console.log(error);
+            toast1("Error!", error, 5000, "error");
+            removeSpinner();
+          },
+          success: function(data) {
+            ////console.log(data);
+            removeSpinner();
+
+            if (data != "") {
+              loadData();
+              toast1("éxito", "Se cancelo correctamente", 5000, "success");
+            } else {
+              $('tbody').empty();
+              toast1("Atencion!", "No se cancelo", 5000, "error");
+            }
+          }
+        });
+      }
+    }
+  });
+}
+
+$(document).on('click', '#btnCancelarJugadora', function(e) {
+  e.preventDefault();
+  cancelarJugadora();
+});
+
+function eliminarArchivo() {
+
+  var parametro = {
+    archivo: archivos
+  }
+  console.log(parametro);
+  bootbox.confirm({
+    message: "¿Estás seguro de querer eliminar este archivo?",
+    buttons: {
+      confirm: {
+        label: 'Si',
+        className: 'btn-success'
+      },
+      cancel: {
+        label: 'No',
+        className: 'btn-danger'
+      }
+    },
+    callback: function(result) {
+      if (result == true) {
+        $.ajax({
+          url: 'resources/routes/routeAltaEquipos.php',
+          type: 'POST',
+          data: {
+            info: parametro,
+            action: "eliminarArchivo"
+          },
+          dataType: 'JSON',
+          beforeSend: function() {
+            showSpinner();
+          },
+          error: function(error) {
+            ////console.log(error);
+            toast1("Error!", error, 5000, "error");
+            removeSpinner();
+          },
+          success: function(data) {
+            ////console.log(data);
+            removeSpinner();
+            $("." + archivos).addClass('hideAll');
+          }
+        });
+      }
+    }
+  });
+}

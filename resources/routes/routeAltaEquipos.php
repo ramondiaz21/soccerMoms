@@ -40,6 +40,15 @@ switch ($action) {
     case 'agregarArchivoDetalles':
         echo json_encode($Equipos->agregarArchivoDetalles($info));
         break;
+    case 'getUltimoId':
+        echo json_encode($Equipos->getUltimoId($info));
+        break;
+    case 'cancelarJugadora':
+        echo json_encode($Equipos->cancelarJugadora($info));
+        break;
+    case 'eliminarArchivo':
+        echo json_encode($Equipos->eliminarArchivo($info));
+        break;
     case 'uploadArchivos':
             $doc = $_FILES["fileArchivo"];
             //var_dump($doc);exit();

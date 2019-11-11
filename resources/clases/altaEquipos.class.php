@@ -145,6 +145,25 @@
             return DBConnection::query($consulta);
         }
 
+        public static function cancelarJugadora($info)
+        {
+            $id        = $info['id'];
+
+            $consulta = "CALL SP_CANCELAR_JUGADORA('$id')";
+
+            return DBConnection::query($consulta);
+        }
+
+        public static function eliminarArchivo($info)
+        {
+            $id             = $info['id'];
+            $archivo        = $info['archivo'];
+
+            $consulta = "DELETE FROM archivo_detalles WHERE archivo = '$archivo'";
+
+            return DBConnection::query($consulta);
+        }
+
         public function upload($doc){
             session_start();
             $username           = $_SESSION['login'];
