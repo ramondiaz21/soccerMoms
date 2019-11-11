@@ -89,8 +89,6 @@
     </div>
   </div>
 
-  <input id="inputSRC" type="text" style="display: none;" value='<? echo IMG_PATH?>' >
-  <input id="inputID" type="text" style="display: none;" value='<? echo $id?>' >
 </section>
 
 <div class="modal fade" id="Modalcat" role="dialog">

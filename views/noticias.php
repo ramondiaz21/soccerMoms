@@ -1,4 +1,4 @@
-<<?php require 'resources/utilities/config.php'; ?>
+<?php require 'resources/utilities/config.php'; ?>
 <section class="torneos-proximos" id="torneos-proximos">
 	<div class="info container">
 		<h1>Noticias Relevantes</h1>
