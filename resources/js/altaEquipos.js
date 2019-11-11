@@ -8,9 +8,6 @@ var datosIncorrectos = "Datos incorrectos, vuelve a intentarlo.";
 
 var imagenJugadora;
 var evidencia;
-var idJugadora = 0;
-var idArchivo;
-
 
 function getEquipos() {
 
@@ -353,67 +350,25 @@ function agregaEquipo() {
       removeSpinner();
     },
     success: function(data) {
-      console.log(data);
-      //cleanDataModals();
-      //removeModals();
-      removeSpinner();
-      //$('#txtIdOrden').val(data[0].id);
-      idJugadora = data[0].id;
-      //console.log(idJugadora);
-      /*if (data != "") {
-        loadData();
-        toast1("éxito", "Se agrego correctamente", 5000, "success");
-      } else {
-        $('tbody').empty();
-        toast1("Atencion!", "No se pudo agregar", 5000, "error");
-      }*/
-    }
-  });
-}
-
-function updateAgregaEquipo() {
-
-  var parametro = {
-    id: idJugadora,
-    nombre: $('#txtNombre').val(),
-    telefono: $('#txtTelefono').val(),
-    imagen: evidencia
-  }
-  console.log(parametro);
-  $.ajax({
-    url: 'resources/routes/routeAltaEquipos.php',
-    type: 'POST',
-    data: {
-      info: parametro,
-      action: "updateAgregaEquipo"
-    },
-    dataType: 'JSON',
-    beforeSend: function() {
-      showSpinner();
-    },
-    error: function(error) {
-      ////console.log(error);
-      toast1("Error!", error, 5000, "error");
-      removeSpinner();
-    },
-    success: function(data) {
       ////console.log(data);
-      //cleanDataModals();
-      //removeModals();
+      cleanDataModals();
+      removeModals();
       removeSpinner();
 
-      /*if (data != "") {
+      if (data != "") {
         loadData();
         toast1("éxito", "Se agrego correctamente", 5000, "success");
       } else {
         $('tbody').empty();
         toast1("Atencion!", "No se pudo agregar", 5000, "error");
-      }*/
+      }
     }
   });
 }
 
-/*$(document).on('click', '#btnAgregarNew', function(e) {
+
+
+$(document).on('click', '#btnAgregarNew', function(e) {
 
   e.preventDefault();
   var flag = true;
@@ -446,50 +401,11 @@ function updateAgregaEquipo() {
   });
 
   if (flag == false || cont >= 1) {
-    toast1("Error!", "Por favor llena los campos de nombre y telefono", 5000, "error");
-  } else {
-    
-  }
-});*/
-
-/*$(document).on('click', '#upload2p', function(e) {
-
-  e.preventDefault();
-  var flag = true;
-  var cont = 0;
-
-  $('#modAgregarJugadora input.necesary').each(function(index, currentElement) {
-    var currentElement = $(this);
-    var value = currentElement.val();
-
-    ////console.log(value);
-
-    if (value == "" || value == "null") {
-      flag = false;
-      cont++;
-      $(this).addClass('invalido');
-    } else {
-      flag = true;
-    }
-  });
-
-  $('#modAgregarJugadora input.necesary').keyup(function(currentElement) {
-    var currentElement = $(this);
-    var value = currentElement.val();
-
-    if (value == "" || value == "null") {
-      $(this).addClass('invalido');
-    } else {
-      $(this).removeClass('invalido');
-    }
-  });
-
-  if (flag == false || cont >= 1) {
-    toast1("Error!", "Por favor llena los campos de nombre y telefono", 5000, "error");
+    toast1("Error!", "Por favor llena todos los campos", 5000, "error");
   } else {
     agregaEquipo();
   }
-});*/
+});
 
 $(document).on('click', '#btnEditar', function(e) {
 
@@ -525,7 +441,7 @@ $(document).on('click', '#btnEditar', function(e) {
   });
 
   if (flag == false || cont >= 1) {
-    toast1("Error!", "Por favor llena los campos de nombre y telefono", 5000, "error");
+    toast1("Error!", "Por favor llena todos los campos", 5000, "error");
   } else {
     guardarEditarJugadora();
   }
@@ -699,14 +615,6 @@ $(document).on('change', '#filePrueba', function(event) {
           '<img id="imagenPerfil" src="resources/clases/imagenesJugadoras/' + evidencia + '" style="width: 100%; height: 100%;" alt="">';
         console.log(post);
         $('#imagenPerfil').replaceWith(post);
-        $(".imagenes-uploads").css('display', 'block');
-        $(".modal-footer").css('display', 'block');
-        console.log(idJugadora);
-        if (idJugadora == 0) {
-          agregaEquipo();
-        } else {
-          updateAgregaEquipo();
-        }
         //$("#imagenPerfil").css('display', 'none');
         $("#filePrueba").val("");
         toast1("Éxito!", "La imagen de perfil se cargo correctamente", 3000, "success");
@@ -783,7 +691,7 @@ fileArchivo = $('#fileArchivo').val();
 
 $(document).on('change', '#fileArchivo', function(event) {
   event.preventDefault();
-  getUltimoId();
+
   var formData = new FormData($("#myformArchivos")[0]);
   console.log(formData);
 
@@ -817,12 +725,15 @@ $(document).on('change', '#fileArchivo', function(event) {
         archivos = data;
         console.log(archivos);
         var post =
-          '<button id="btnBorrar' + ultimoId + '" onclick="borrarGaleria(' + ultimoId + ')" class="btn btn-danger"><i class="fa fa-times"></i></button>' +
+          '<button id="btnBorrar' + bandera + '" onclick="borrarGaleria(' + bandera + ')" class="btn btn-danger"><i class="fa fa-times"></i></button>' +
           '<a id="btnSubirArchivo">' +
-          '<div class="image-wrapper position-relative" id="img_galeria">' +
-          '<img id="" src="resources/clases/archivosJugadoras/' + archivos + '" style="width: 100%; height: 100%;" alt="">' +
+          '<div class="col-lg-6 col-md-6 col-12 divisions ' + archivos + '" style="margin: 10px 0" id="divGaleria">' +
+          '<button id="btnBorrar' + ultimoId + '" onclick="eliminarArchivo()" class="btn btn-danger ' + ultimoId + '"><i class="fa fa-times"></i></button>' +
+          '<a id="btnSubirArchivo ' + ultimoId + '">' + '<div class="image-wrapper position-relative" id="img_galeria">' +
+          '<img id="imagenPerfil" src="resources/clases/archivosJugadoras/' + archivos + '" style="width: 100%; height: 100%;" alt="">' +
           '</div>' +
-          '</a>';
+          '</a>' +
+          '</div>';
         /*'<form id="myformArchivos" enctype="multipart/form-data">' +
         '<input class="form-control-file" id="fileArchivo' + bandera + '" name="' +
         'fileArchivo " type="file" accept="' +
@@ -831,10 +742,10 @@ $(document).on('change', '#fileArchivo', function(event) {
         '</form>';*/
 
         console.log(post);
-        $('#imagenNueva').replaceWith(post);
+        $('#divGaleria').replaceWith(post);
         var post2 =
           '<div class="col-lg-6 col-md-6 col-12 divisions" style="margin: 10px 0" id="divGaleria">' +
-          '<button id="btnBorrar" onclick="borrarGaleria" class="btn btn-danger" style="display:none"><i class="fa fa-times"></i></button>' +
+          '<button id="btnBorrar" onclick="eliminarArchivo" class="btn btn-danger" style="display:none"><i class="fa fa-times"></i></button>' +
           '<a id="btnSubirArchivo">' +
           '<div class="image-wrapper position-relative" id="img_galeria">' +
           '<div class="centerer" id="imagenNueva">' +
@@ -850,9 +761,7 @@ $(document).on('change', '#fileArchivo', function(event) {
           '</form>' +
           '</div>';
         $('#new-wrapper').append(post2);
-        agregarArchivoDetalles();
         $('#fileArchivo').val("");
-
         console.log(fileArchivo);
         toast1("Éxito!", "El archivo se cargo correctamente", 3000, "success");
       }
@@ -872,8 +781,8 @@ $(document).on('click', '#btnSubirArchivo', function(e) {
 function agregarArchivoDetalles() {
 
   var parametro = {
-    id_jugadora: idJugadora,
-    archivo: archivos
+    id_jugadora: $('#select_equipo').val(),
+    archivo: $('#txtNombre').val()
   }
   console.log(parametro);
   $.ajax({
@@ -894,18 +803,17 @@ function agregarArchivoDetalles() {
     },
     success: function(data) {
       ////console.log(data);
-      //cleanDataModals();
-      //removeModals();
+      cleanDataModals();
+      removeModals();
       removeSpinner();
-      idArchivo = data[0].id;
-      console.log(idArchivo);
-      /*if (data != "") {
+
+      if (data != "") {
         loadData();
         toast1("éxito", "Se agrego correctamente", 5000, "success");
       } else {
         $('tbody').empty();
         toast1("Atencion!", "No se pudo agregar", 5000, "error");
-      }*/
+      }
     }
   });
 }
@@ -935,6 +843,7 @@ function agregarArchivoDetalles() {
 }
 
 document.getElementById('fileArchivo').addEventListener('change', archivo3, false);*/
+/*document.getElementById('fileArchivo').addEventListener('change', archivo3, false);*/
 var ultimoId;
 
 function getUltimoId() {
@@ -1006,10 +915,10 @@ function cancelarJugadora() {
 
             if (data != "") {
               loadData();
-              toast1("éxito", "Se dio de alta correctamente", 5000, "success");
+              toast1("éxito", "Se cancelo correctamente", 5000, "success");
             } else {
               $('tbody').empty();
-              toast1("Atencion!", "No se pudo dar de alta", 5000, "error");
+              toast1("Atencion!", "No se cancelo", 5000, "error");
             }
           }
         });
@@ -1022,3 +931,50 @@ $(document).on('click', '#btnCancelarJugadora', function(e) {
   e.preventDefault();
   cancelarJugadora();
 });
+
+function eliminarArchivo() {
+
+  var parametro = {
+    archivo: archivos
+  }
+  console.log(parametro);
+  bootbox.confirm({
+    message: "¿Estás seguro de querer eliminar este archivo?",
+    buttons: {
+      confirm: {
+        label: 'Si',
+        className: 'btn-success'
+      },
+      cancel: {
+        label: 'No',
+        className: 'btn-danger'
+      }
+    },
+    callback: function(result) {
+      if (result == true) {
+        $.ajax({
+          url: 'resources/routes/routeAltaEquipos.php',
+          type: 'POST',
+          data: {
+            info: parametro,
+            action: "eliminarArchivo"
+          },
+          dataType: 'JSON',
+          beforeSend: function() {
+            showSpinner();
+          },
+          error: function(error) {
+            ////console.log(error);
+            toast1("Error!", error, 5000, "error");
+            removeSpinner();
+          },
+          success: function(data) {
+            ////console.log(data);
+            removeSpinner();
+            $("." + archivos).addClass('hideAll');
+          }
+        });
+      }
+    }
+  });
+}

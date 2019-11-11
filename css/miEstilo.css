@@ -103,7 +103,8 @@ tbody {
   transform: translate(-50%, -50%);
 }
 
-
+.hideAll {
+  display: none;
 
 .x_panel {
     position: relative;
@@ -163,5 +164,5 @@ tbody {
 
 .x_content h4 {
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 500;¿
 }

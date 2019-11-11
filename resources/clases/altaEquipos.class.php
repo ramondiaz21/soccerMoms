@@ -72,40 +72,18 @@
         public static function agregar($info)
         {
             session_start();
-            $id         = $info['id'];
+            
             $equipo     = $info['equipo'];
             $nombre     = $info['nombre'];
             $telefono   = $info['telefono'];
-            $imagen     = $info['imagen'];
+            $imagen   = $info['imagen'];
 
-            $consulta = "CALL SP_ADD_JUGADORA($equipo,'$nombre','$telefono','$imagen')";
-
-            // echo $consulta; exit;
-            //var_dump($consulta);exit;
-            $respuesta = DBConnection::query_assoc($consulta);
-            // echo $consulta; exit;
-            
-            return $respuesta;
-            
-        }
-
-        public static function updateAgregaEquipo($info)
-        {
-            session_start();
-            $id         = $info['id'];
-            $equipo     = $info['equipo'];
-            $nombre     = $info['nombre'];
-            $telefono   = $info['telefono'];
-            $imagen     = $info['imagen'];
-
-            $consulta = "CALL SP_UPDATE_IMAGEN_JUGADORA('$id','$nombre','$telefono','$imagen')";
+            $consulta = "INSERT INTO jugadoras (equipo,nombre,telefono,imagen,status) 
+                        VALUES('$equipo','$nombre','$telefono','$imagen',1)";
 
             // echo $consulta; exit;
             //var_dump($consulta);exit;
-            $respuesta = DBConnection::query_row($consulta);
-            // echo $consulta; exit;
-            
-            return $respuesta;
+            return DBConnection::query($consulta);
             
         }
 
@@ -167,11 +145,21 @@
             return DBConnection::query($consulta);
         }
 
-         public static function cancelarJugadora($info)
+        public static function cancelarJugadora($info)
         {
             $id        = $info['id'];
 
             $consulta = "CALL SP_CANCELAR_JUGADORA('$id')";
+
+            return DBConnection::query($consulta);
+        }
+
+        public static function eliminarArchivo($info)
+        {
+            $id             = $info['id'];
+            $archivo        = $info['archivo'];
+
+            $consulta = "DELETE FROM archivo_detalles WHERE archivo = '$archivo'";
 
             return DBConnection::query($consulta);
         }
@@ -255,28 +243,17 @@
         public static function agregarArchivoDetalles($info)
         {
             session_start();
-            $id              = $info['id'];
+            
             $id_jugadora     = $info['id_jugadora'];
-            $archivo         = $info['archivo'];
+            $archivo     = $info['archivo'];
 
-            $consulta = "CALL SP_ADD_ARCHIVO('$id_jugadora','$archivo')";
+            $consulta = "INSERT INTO archivo_detalles (id_jugadora,archivo) 
+                        VALUES('$id_jugadora','$archivo')";
 
             // echo $consulta; exit;
             //var_dump($consulta);exit;
-            $respuesta = DBConnection::query_assoc($consulta);
-            // echo $consulta; exit;
+            return DBConnection::query($consulta);
             
-            return $respuesta;
-            
-        }
-
-        public static function getUltimoId($info)
-        {
-            
-            $consulta = "SELECT max(id+1) from archivo_detalles";
-
-            //var_dump($consulta);exit;
-            return DBConnection::query_row($consulta);
         }
 
 

@@ -25,9 +25,6 @@ switch ($action) {
     case 'agregar':
         echo json_encode($Equipos->agregar($info));
         break;
-    case 'updateAgregaEquipo':
-        echo json_encode($Equipos->updateAgregaEquipo($info));
-        break;
     case 'getJugadora':
         echo json_encode($Equipos->getJugadora($info));
         break;
@@ -48,6 +45,9 @@ switch ($action) {
         break;
     case 'cancelarJugadora':
         echo json_encode($Equipos->cancelarJugadora($info));
+        break;
+    case 'eliminarArchivo':
+        echo json_encode($Equipos->eliminarArchivo($info));
         break;
     case 'uploadArchivos':
             $doc = $_FILES["fileArchivo"];

@@ -90,3 +90,16 @@ BEGIN
     DELETE FROM jugadoras WHERE id = _id_jugadora;
 END $$
 DELIMITER ;
+
+--------------------------------
+
+DROP PROCEDURE IF EXISTS SP_ELIMINAR_ARCHIVO;
+
+DELIMITER $$
+CREATE PROCEDURE SP_ELIMINAR_ARCHIVO(
+  IN _id_archivo INT
+)
+BEGIN 
+    DELETE FROM archivo_detalles WHERE id = _id_archivo;
+END $$
+DELIMITER ;
