@@ -142,7 +142,7 @@
             </div>
           </div>
           <div class="modal-footer auto-overflow" style="display: none">
-            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">CERRAR</button>
+            <button type="button" class="btn btn-danger" id="btnCancelarJugadora" aria-label="Close">CANCELAR</button>
             <button type="submit" class="btn btn-primary btn_modal_contratantes" id="btnAgregarNew">AGREGAR JUGADORA</button>
           </div>
         </div>

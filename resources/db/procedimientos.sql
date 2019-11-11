@@ -79,3 +79,14 @@ DELIMITER ;
 
 --------------------------------
 
+DROP PROCEDURE IF EXISTS SP_CANCELAR_JUGADORA;
+
+DELIMITER $$
+CREATE PROCEDURE SP_CANCELAR_JUGADORA(
+  IN _id_jugadora INT
+)
+BEGIN 
+    DELETE FROM archivo_detalles WHERE id_jugadora = _id_jugadora;
+    DELETE FROM jugadoras WHERE id = _id_jugadora;
+END $$
+DELIMITER ;

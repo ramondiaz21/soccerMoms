@@ -820,7 +820,7 @@ $(document).on('change', '#fileArchivo', function(event) {
           '<button id="btnBorrar' + ultimoId + '" onclick="borrarGaleria(' + ultimoId + ')" class="btn btn-danger"><i class="fa fa-times"></i></button>' +
           '<a id="btnSubirArchivo">' +
           '<div class="image-wrapper position-relative" id="img_galeria">' +
-          '<img id="imagenPerfil" src="resources/clases/archivosJugadoras/' + archivos + '" style="width: 100%; height: 100%;" alt="">' +
+          '<img id="" src="resources/clases/archivosJugadoras/' + archivos + '" style="width: 100%; height: 100%;" alt="">' +
           '</div>' +
           '</a>';
         /*'<form id="myformArchivos" enctype="multipart/form-data">' +
@@ -963,3 +963,62 @@ function getUltimoId() {
     }
   });
 }
+
+function cancelarJugadora() {
+
+  var parametro = {
+    id: idJugadora
+  }
+  console.log(parametro);
+  bootbox.confirm({
+    message: "¿Estás seguro de querer cancelar esta jugadora?",
+    buttons: {
+      confirm: {
+        label: 'Si',
+        className: 'btn-success'
+      },
+      cancel: {
+        label: 'No',
+        className: 'btn-danger'
+      }
+    },
+    callback: function(result) {
+      if (result == true) {
+        $.ajax({
+          url: 'resources/routes/routeAltaEquipos.php',
+          type: 'POST',
+          data: {
+            info: parametro,
+            action: "cancelarJugadora"
+          },
+          dataType: 'JSON',
+          beforeSend: function() {
+            showSpinner();
+          },
+          error: function(error) {
+            ////console.log(error);
+            toast1("Error!", error, 5000, "error");
+            removeSpinner();
+          },
+          success: function(data) {
+            ////console.log(data);
+            removeSpinner();
+
+            if (data != "") {
+              loadData();
+              toast1("éxito", "Se dio de alta correctamente", 5000, "success");
+            } else {
+              $('tbody').empty();
+              toast1("Atencion!", "No se pudo dar de alta", 5000, "error");
+            }
+          }
+        });
+      }
+    }
+  });
+}
+
+$(document).on('click', '#btnCancelarJugadora', function(e) {
+  e.preventDefault();
+  cancelarJugadora();
+});
