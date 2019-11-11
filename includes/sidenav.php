@@ -23,10 +23,10 @@ session_start();
           </ul>
         </li>-->
         <li>
-          <a href="index.html">Inicio</a>
+          <a href="index.php">Inicio</a>
         </li>
         <li>
-          <a href="equipos.html">Equipos</a>
+          <a href="equipos.php">Equipos</a>
         </li>
         <!--<li>
           <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
@@ -43,16 +43,16 @@ session_start();
           </ul>
         </li>-->
         <li>
-          <a href="equipoIndividual.html">Equipos Individuales</a>
+          <a href="equipoIndividual.php">Equipos Individuales</a>
         </li>
         <li>
-          <a href="noticias.html">Blog</a>
+          <a href="noticias.php">Blog</a>
         </li>
         <li>
-          <a href="noticiaIndividual.html">Noticias Individuales</a>
+          <a href="noticiaIndividual.php">Noticias Individuales</a>
         </li>
         <li class="onlySmall">
-          <a href="inicioSesion.html">Iniciar Sesion</a>
+          <a href="inicioSesion.php">Iniciar Sesion</a>
         </li>
       </ul>
     </nav>
