@@ -167,7 +167,7 @@ $(document).on("click","#add_content",function(e){//abrimos la pagina para crear
 
 function verNews(id){// abrimos la pagina para ver la noticia
 
-  window.open("../noticias.php?n="+id, '_blank');
+  window.open("noticia.php?n="+id, '_blank');
 
 }
 

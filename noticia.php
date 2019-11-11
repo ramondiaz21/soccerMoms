@@ -1,3 +1,5 @@
+<?php include('includes/noticia.php'); ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -11,7 +13,7 @@
     <?php include 'includes/sidenav.php'; ?>
     <div id="content">
       <?php include 'includes/navbar.php'; ?>
-      <?php include 'views/noticiaIndividual.php'; ?>
+      <?php include 'views/noticia.php'; ?>
       <?php include 'includes/footer.php'; ?>
     </div>
   </div>

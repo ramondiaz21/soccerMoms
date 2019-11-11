@@ -86,6 +86,13 @@
 
             break;
 
+        case 'getnoticias':
+
+            echo json_encode(Noticia::getnoticias($info));//
+
+            break;
+
+
         default:
 
         if (isset($_FILES["imagen"])){

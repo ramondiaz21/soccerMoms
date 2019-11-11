@@ -1,21 +1,11 @@
-<!DOCTYPE html>
-<html>
+<<?php require 'resources/utilities/config.php'; ?>
+<section class="torneos-proximos" id="torneos-proximos">
+	<div class="info container">
+		<h1>Noticias Relevantes</h1>
+		<div class="row content-wrapper">
+			<div id="divNoti1"></div>
+		</div>
+	</div>
+</section>
 
-<head>
-  <?php include 'includes/links.html'; ?>
-  <title>Soccer Moms</title>
-</head>
-
-<body>
-  <div class="wrapper">
-    <?php include 'includes/sidenav.php'; ?>
-    <div id="content">
-      <?php include 'includes/navbar.php'; ?>
-      <?php include 'views/noticias.php'; ?>
-      <?php include 'includes/footer.php'; ?>
-    </div>
-  </div>
-  <?php include 'includes/scripts.html'; ?>
-</body>
-
-</html>
+<input id="inputSRC2" type="text" style="display: none;" value='<? echo NOTI_PATH?>' >

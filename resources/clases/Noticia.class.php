@@ -279,14 +279,19 @@
 
         }
 
-        public static function getnoticia($info){
+        public static function getnoticias($info){
 
-            $id = $info->id;
+            $lim = $info['lim'];
 
-            $consult = "CALL SP_deleteNoticia('$id');";
-            //Main::log($consult);
-            $resultado = DBConnection::query($consult);
-
+            $consult = "SELECT * FROM vwNoticia WHERE STATUS = 1 order by fecha desc LIMIT $lim;";
+            
+            $resultado = DBConnection::query_row($consult);
+            
+            foreach($resultado as $key=>$item){
+               $resultado[$key][3]=substr(htmlspecialchars_decode(addslashes(strip_tags ($item[3]))),0,97).'...';
+            }
+            
+            return $resultado;
         }
 
 
