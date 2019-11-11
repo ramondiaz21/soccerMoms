@@ -78,9 +78,7 @@
     </div>
   </div>
 
-  <input id="inputSRC" type="text" style="display: none;" value='<? echo IMG_PATH?>' >
-  <input id="inputSRC2" type="text" style="display: none;" value='<? echo NOTI_PATH?>' >
-  <input id="inputID" type="text" style="display: none;" value='<? echo $id?>' >
+  <input id="inputID" type="text" style="display: none;" value='<? echo $_SESSION['idUser']?>' >
 
 </section>
 
