@@ -1,0 +1,4 @@
+
+			---- SELECT * FROM vwNoticia WHERE status = 1 and id = '1'; ----- 
+			---- SELECT * FROM vwNoticia WHERE status = 1 and id = '1'; ----- 
+			---- SELECT * FROM vwNoticia WHERE status = 1 and id = '1'; ----- 
