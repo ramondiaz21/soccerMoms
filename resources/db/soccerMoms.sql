@@ -82,6 +82,27 @@ CREATE TABLE IF NOT EXISTS archivo_detalles (
 COLLATE='utf8_bin'
 ;
 
+DROP TABLE IF EXISTS `contenido_blog`;
+CREATE TABLE IF NOT EXISTS `contenido_blog` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cabecera` varchar(50) NOT NULL,
+  `texto` text NOT NULL,
+  `categoria` varchar(50) NOT NULL,
+  `etiquetas` varchar(50) NOT NULL,
+  `url` varchar(300) NOT NULL,
+  `fecha` date NOT NULL,
+  `userId` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `cat_categorias`;
+CREATE TABLE IF NOT EXISTS `cat_categorias` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `categoria` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 SET FOREIGN_KEY_CHECKS=0;
 
