@@ -87,6 +87,7 @@ function loadData($info) {
         var thead = '<tr>' +
           '<th>NO.</th>' +
           '<th>NOMBRE JUGADORA</th>' +
+          '<th>POSICIÓN</th>' +
           '<th>TELÉFONO</th>' +
           '<th>FECHA DE ALTA</th>' +
           '<th>ESTATUS</th>' +
@@ -96,9 +97,9 @@ function loadData($info) {
           tbody += '<tr data-toggle="tooltip" title="" id="row_' + data[i][0] + '">'
           for (var j = 0; j < indices; j++) {
             if (j == (indices - 1)) {
-              if (data[i][4] == 1)
+              if (data[i][5] == 1)
                 tbody += '<td><button type="button" class="btn btn-success btn-sm">' + 'Activo' + '</button></td>'
-              else if (data[i][4] == 0)
+              else if (data[i][5] == 0)
                 tbody += '<td><button type="button" class="btn btn-warning btn-sm">' + 'Inactivo' + '</button></td>'
             } else {
               tbody += '<td>' + data[i][j] + '</td>'
@@ -332,6 +333,7 @@ function agregaEquipo() {
   var parametro = {
     equipo: $('#select_equipo').val(),
     nombre: $('#txtNombre').val(),
+    posicion: $('#txtPosicion').val(),
     telefono: $('#txtTelefono').val(),
     imagen: evidencia
   }
@@ -360,6 +362,7 @@ function agregaEquipo() {
       //$('#txtIdOrden').val(data[0].id);
       idJugadora = data[0].id;
       console.log(idJugadora);
+      loadData();
       /*if (data != "") {
         loadData();
         toast1("éxito", "Se agrego correctamente", 5000, "success");
@@ -376,6 +379,7 @@ function updateAgregaEquipo() {
   var parametro = {
     id: idJugadora,
     nombre: $('#txtNombre').val(),
+    posicion: $('#txtPosicion').val(),
     telefono: $('#txtTelefono').val(),
     imagen: evidencia
   }
@@ -597,6 +601,7 @@ function busqueda() {
         var thead = '<tr>' +
           '<th>NO.</th>' +
           '<th>NOMBRE JUGADORA</th>' +
+          '<th>POSICIÓN</th>' +
           '<th>TELÉFONO</th>' +
           '<th>FECHA DE ALTA</th>' +
           '<th>ESTATUS</th>' +
@@ -606,9 +611,9 @@ function busqueda() {
           tbody += '<tr data-toggle="tooltip" title="" id="row_' + data[i][0] + '">'
           for (var j = 0; j < indices; j++) {
             if (j == (indices - 1)) {
-              if (data[i][4] == 1)
+              if (data[i][5] == 1)
                 tbody += '<td><button type="button" class="btn btn-success btn-sm">' + 'Activo' + '</button></td>'
-              else if (data[i][4] == 0)
+              else if (data[i][5] == 0)
                 tbody += '<td><button type="button" class="btn btn-warning btn-sm">' + 'Inactivo' + '</button></td>'
             } else {
               tbody += '<td>' + data[i][j] + '</td>'
@@ -642,7 +647,7 @@ function busqueda() {
 
       } else {
         $('#tbody').empty();
-        //toast1("Atencion!", "No hay jugadoras para mostrar", 5000, "error");
+        toast1("Atencion!", "No hay jugadoras para mostrar", 5000, "error");
       }
     }
   });
@@ -798,12 +803,14 @@ $(document).on('change', '#fileArchivo', function(event) {
         archivos = data;
         console.log(archivos);
         var post =
+          '<div class="col-lg-6 col-md-6 col-12 divisions ' + bandera + '" style="margin: 10px 0" id="divGaleria">' +
           '<button id="' + archivos + '" onclick="eliminarArchivo()" class="btn btn-danger"><i class="fa fa-times"></i></button>' +
           '<a id="btnSubirArchivo">' +
           '<div class="image-wrapper position-relative" id="img_galeria">' +
           '<img id="" src="resources/clases/archivosJugadoras/' + archivos + '" style="width: 100%; height: 100%;" alt="">' +
           '</div>' +
-          '</a>';
+          '</a>' +
+          '</div>';
         /*'<form id="myformArchivos" enctype="multipart/form-data">' +
         '<input class="form-control-file" id="fileArchivo' + bandera + '" name="' +
         'fileArchivo " type="file" accept="' +
@@ -812,7 +819,7 @@ $(document).on('change', '#fileArchivo', function(event) {
         '</form>';*/
 
         console.log(post);
-        $('#imagenNueva').replaceWith(post);
+        $('#divGaleria').replaceWith(post);
         var post2 =
           '<div class="col-lg-6 col-md-6 col-12 divisions" style="margin: 10px 0" id="divGaleria">' +
           '<button id="btnBorrar" onclick="eliminarArchivo" class="btn btn-danger" style="display:none"><i class="fa fa-times"></i></button>' +
@@ -1039,7 +1046,8 @@ function eliminarArchivo() {
           success: function(data) {
             ////console.log(data);
             removeSpinner();
-            $("." + archivos).addClass('hideAll');
+            $("." + bandera).remove();
+            console.log(bandera);
           }
         });
       }

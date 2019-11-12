@@ -30,13 +30,14 @@ DELIMITER $$
 CREATE PROCEDURE SP_ADD_JUGADORA(
   IN _equipo INT,                               
   IN _nombre VARCHAR(500),
+  IN _posicion VARCHAR(500),
   IN _telefono VARCHAR(500),
   IN _imagen VARCHAR(500)
 )
 BEGIN 
   
-    INSERT INTO jugadoras(equipo,nombre,telefono,imagen)
-    VALUES(_equipo,_nombre,_telefono,_imagen);
+    INSERT INTO jugadoras(equipo,nombre,posicion,telefono,imagen)
+    VALUES(_equipo,_nombre,_posicion,_telefono,_imagen);
     SET @lastId = LAST_INSERT_ID();
     SELECT @lastId AS id;
 END $$
@@ -50,12 +51,13 @@ DELIMITER $$
 CREATE PROCEDURE SP_UPDATE_IMAGEN_JUGADORA(
   IN _id INT,
   IN _nombre VARCHAR(500),
+  IN _posicion VARCHAR(500),
   IN _telefono VARCHAR(500),
   IN _imagen VARCHAR(500)
 )
 BEGIN 
     UPDATE jugadoras
-    SET nombre = _nombre, telefono = _telefono, imagen = _imagen
+    SET nombre = _nombre, posicion = _posicion , telefono = _telefono, imagen = _imagen
     WHERE id = _id;
 END $$
 DELIMITER ;

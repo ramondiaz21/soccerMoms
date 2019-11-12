@@ -36,7 +36,7 @@
             $id         = $info['id'];
             $status     = $info['status'];
 
-            $consulta = "SELECT j.id,j.nombre, j.telefono,j.creacion,j.status
+            $consulta = "SELECT j.id,j.nombre,j.posicion, j.telefono,j.creacion,j.status
                            FROM usuarios u
                            LEFT JOIN equipos e ON e.usuario = u.id
                            LEFT JOIN jugadoras j ON j.equipo = e.id
@@ -57,7 +57,7 @@
             $status     = $info['status'];
             //var_dump($info);
             //exit;
-            $consulta = "SELECT j.id,j.nombre, j.telefono,j.creacion,j.status
+            $consulta = "SELECT j.id,j.nombre,j.posicion j.telefono,j.creacion,j.status
                            FROM usuarios u
                            LEFT JOIN equipos e ON e.usuario = u.id
                            LEFT JOIN jugadoras j ON j.equipo = e.id
@@ -75,9 +75,10 @@
             $id         = $info['id'];
             $equipo     = $info['equipo'];
             $nombre     = $info['nombre'];
+            $posicion   = $info['posicion'];
             $telefono   = $info['telefono'];
             $imagen     = $info['imagen'];
-            $consulta = "CALL SP_ADD_JUGADORA($equipo,'$nombre','$telefono','$imagen')";
+            $consulta = "CALL SP_ADD_JUGADORA($equipo,'$nombre','$posicion','$telefono','$imagen')";
             // echo $consulta; exit;
             //var_dump($consulta);exit;
             $respuesta = DBConnection::query_assoc($consulta);
@@ -93,9 +94,10 @@
             $id         = $info['id'];
             $equipo     = $info['equipo'];
             $nombre     = $info['nombre'];
+            $posicion   = $info['posicion'];
             $telefono   = $info['telefono'];
             $imagen     = $info['imagen'];
-            $consulta = "CALL SP_UPDATE_IMAGEN_JUGADORA('$id','$nombre','$telefono','$imagen')";
+            $consulta = "CALL SP_UPDATE_IMAGEN_JUGADORA('$id','$nombre','$posicion','$telefono','$imagen')";
             // echo $consulta; exit;
             //var_dump($consulta);exit;
             $respuesta = DBConnection::query_row($consulta);
