@@ -803,7 +803,7 @@ $(document).on('change', '#fileArchivo', function(event) {
         archivos = data;
         console.log(archivos);
         var post =
-          '<div class="col-lg-6 col-md-6 col-12 divisions ' + bandera + '" style="margin: 10px 0" id="divGaleria">' +
+          '<div class="' + bandera + '">' +
           '<button id="' + archivos + '" onclick="eliminarArchivo()" class="btn btn-danger"><i class="fa fa-times"></i></button>' +
           '<a id="btnSubirArchivo">' +
           '<div class="image-wrapper position-relative" id="img_galeria">' +
@@ -819,7 +819,7 @@ $(document).on('change', '#fileArchivo', function(event) {
         '</form>';*/
 
         console.log(post);
-        $('#divGaleria').replaceWith(post);
+        $('#imagenNueva').replaceWith(post);
         var post2 =
           '<div class="col-lg-6 col-md-6 col-12 divisions" style="margin: 10px 0" id="divGaleria">' +
           '<button id="btnBorrar" onclick="eliminarArchivo" class="btn btn-danger" style="display:none"><i class="fa fa-times"></i></button>' +
