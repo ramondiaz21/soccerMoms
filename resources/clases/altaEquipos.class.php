@@ -87,6 +87,24 @@
             
         }
 
+        public static function updateAgregaEquipo($info)
+        {
+            session_start();
+            $id         = $info['id'];
+            $equipo     = $info['equipo'];
+            $nombre     = $info['nombre'];
+            $telefono   = $info['telefono'];
+            $imagen     = $info['imagen'];
+            $consulta = "CALL SP_UPDATE_IMAGEN_JUGADORA('$id','$nombre','$telefono','$imagen')";
+            // echo $consulta; exit;
+            //var_dump($consulta);exit;
+            $respuesta = DBConnection::query_row($consulta);
+            // echo $consulta; exit;
+            
+            return $respuesta;
+            
+        }
+
         public static function getJugadora($info)
         {
             session_start();

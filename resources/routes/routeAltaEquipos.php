@@ -49,6 +49,9 @@ switch ($action) {
     case 'eliminarArchivo':
         echo json_encode($Equipos->eliminarArchivo($info));
         break;
+    case 'updateAgregaEquipo':
+        echo json_encode($Equipos->updateAgregaEquipo($info));
+        break;
     case 'uploadArchivos':
             $doc = $_FILES["fileArchivo"];
             //var_dump($doc);exit();
