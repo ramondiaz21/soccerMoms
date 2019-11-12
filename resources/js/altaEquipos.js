@@ -615,7 +615,7 @@ $(document).on('change', '#filePrueba', function(event) {
           '<img id="imagenPerfil" src="resources/clases/imagenesJugadoras/' + evidencia + '" style="width: 100%; height: 100%;" alt="">';
         console.log(post);
         $('#imagenPerfil').replaceWith(post);
-        //$("#imagenPerfil").css('display', 'none');
+        //$("#imagenPerfil").css('display', 'block');
         $("#filePrueba").val("");
         toast1("Éxito!", "La imagen de perfil se cargo correctamente", 3000, "success");
       }
