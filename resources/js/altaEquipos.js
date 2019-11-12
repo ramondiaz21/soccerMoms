@@ -766,7 +766,12 @@ var archivos;
 var bandera = 0;
 var fileArchivo;
 fileArchivo = $('#fileArchivo').val();
-
+var str;
+var res;
+var uno;
+var dos;
+var tres;
+var cuatro;
 $(document).on('change', '#fileArchivo', function(event) {
   event.preventDefault();
   getUltimoId();
@@ -802,8 +807,19 @@ $(document).on('change', '#fileArchivo', function(event) {
         console.log(bandera);
         archivos = data;
         console.log(archivos);
+        str = archivos;
+        /*res = str.replace('/_ /- /./,', '');
+        console.log(res);*/
+        uno = str.replace(/-/g, '');
+        console.log(uno);
+        dos = uno.replace(/_/g, '');
+        console.log(dos);
+        tres = dos.replace(/,/g, '');
+        console.log(tres);
+        cuatro = tres.replace(/.jpg/g, '');
+        console.log(cuatro);
         var post =
-          '<div class="' + bandera + '">' +
+          '<div class="' + cuatro + '">' +
           '<button id="' + archivos + '" onclick="eliminarArchivo()" class="btn btn-danger"><i class="fa fa-times"></i></button>' +
           '<a id="btnSubirArchivo">' +
           '<div class="image-wrapper position-relative" id="img_galeria">' +
@@ -1046,8 +1062,8 @@ function eliminarArchivo() {
           success: function(data) {
             ////console.log(data);
             removeSpinner();
-            $("." + bandera).remove();
-            console.log(bandera);
+            $("." + cuatro).remove();
+            console.log(res);
           }
         });
       }
