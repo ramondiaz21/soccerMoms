@@ -101,6 +101,9 @@
                   <input type="text" class="form-control necesary" id="txtNombre" name="" value="" placeholder="Nombre De Jugadora*">
                 </div>
                 <div class="col-lg-12" style="margin-top: 15px">
+                  <input type="text" class="form-control necesary" id="txtPosicion" name="" value="" placeholder="Posición De Jugadora*">
+                </div>
+                <div class="col-lg-12" style="margin-top: 15px">
                   <input type="tel" class="form-control necesary" id="txtTelefono" name="" value="" placeholder="Teléfono*">
                 </div>
                 <div class="row spaceFormAddMembresia imagenes-uploads" style="display: none">
@@ -165,6 +168,10 @@
                 <div class="col-lg-12" style="margin-top: 15px">
                   <label style="width: 100%;"><b>Nombre:</b></label>
                   <input type="text" class="form-control necesary" id="txtNombreE" name="" value="" placeholder="Nombre De Jugadora*">
+                </div>
+                <div class="col-lg-12" style="margin-top: 15px">
+                  <label style="width: 100%;"><b>Posición De Jugadora:</b></label>
+                  <input type="text" class="form-control necesary" id="txtPosicionE" name="" value="" placeholder="Posición De Jugadora*">
                 </div>
                 <div class="col-lg-12" style="margin-top: 15px">
                   <label style="width: 100%;"><b>Teléfono:</b></label>
