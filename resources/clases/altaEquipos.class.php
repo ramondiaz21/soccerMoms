@@ -69,21 +69,21 @@
             return DBConnection::query_row($consulta);
         }
 
-        public static function agregar($info)
+       public static function agregar($info)
         {
             session_start();
-            
+            $id         = $info['id'];
             $equipo     = $info['equipo'];
             $nombre     = $info['nombre'];
             $telefono   = $info['telefono'];
-            $imagen   = $info['imagen'];
-
-            $consulta = "INSERT INTO jugadoras (equipo,nombre,telefono,imagen,status) 
-                        VALUES('$equipo','$nombre','$telefono','$imagen',1)";
-
+            $imagen     = $info['imagen'];
+            $consulta = "CALL SP_ADD_JUGADORA($equipo,'$nombre','$telefono','$imagen')";
             // echo $consulta; exit;
             //var_dump($consulta);exit;
-            return DBConnection::query($consulta);
+            $respuesta = DBConnection::query_assoc($consulta);
+            // echo $consulta; exit;
+            
+            return $respuesta;
             
         }
 
@@ -164,6 +164,31 @@
             return DBConnection::query($consulta);
         }
 
+         public static function getUltimoId($info)
+        {
+            
+            $consulta = "SELECT max(id+1) from archivo_detalles";
+            //var_dump($consulta);exit;
+            return DBConnection::query_row($consulta);
+        }
+
+        public static function agregarArchivoDetalles($info)
+        {
+            session_start();
+            $id              = $info['id'];
+            $id_jugadora     = $info['id_jugadora'];
+            $archivo         = $info['archivo'];
+            $consulta = "CALL SP_ADD_ARCHIVO('$id_jugadora','$archivo')";
+            // echo $consulta; exit;
+            //var_dump($consulta);exit;
+            $respuesta = DBConnection::query_assoc($consulta);
+            // echo $consulta; exit;
+            
+            return $respuesta;
+            
+        }
+
+
         public function upload($doc){
             session_start();
             $username           = $_SESSION['login'];
@@ -240,7 +265,7 @@
 
         }
 
-        public static function agregarArchivoDetalles($info)
+        /*public static function agregarArchivoDetalles($info)
         {
             session_start();
             
@@ -254,7 +279,7 @@
             //var_dump($consulta);exit;
             return DBConnection::query($consulta);
             
-        }
+        }*/
 
 
         
